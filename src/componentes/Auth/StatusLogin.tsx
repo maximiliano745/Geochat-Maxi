@@ -1,22 +1,19 @@
-import { type } from "os";
 import { useState } from "react";
 
-type Props = {
-    status: boolean, 
+interface StatusLoginProps  {
+  isLoggedIn: boolean;
 }
 
-export const StatusLogin = (props: Props) =>{
-
-    
-
-  const [inputStatus, setStatus] = useState<typeof props>({
-    status:false
-  });
-    return(
-        <div>
-            StatusLogin : status
-        </div>
-    )
+function StatusLogin({ isLoggedIn }: StatusLoginProps) {
+  return (
+    <div>
+      {isLoggedIn ? (
+        <p>¡Bienvenido! Acceso Concedido..!!!.</p>
+      ) : (
+        <p>Por favor Iniciar Sesion</p>
+      )}
+    </div>
+  );
 }
 
-
+export default StatusLogin;

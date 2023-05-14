@@ -14,15 +14,13 @@ import Chat from './componentes/paginas/Chat';
 
 //import PrivateRoute from './componentes/Auth/PrivateRoute';
 import AuthProvider from './componentes/Auth/AuthProvider';
+import { useState } from 'react';
 //import Home from './componentes/paginas/Home';
-
+import StatusLogin from './componentes/Auth/StatusLogin';
 
 
 
 const App = () => {
-
-
-
 
   let lat: any, lon: any
 
@@ -60,15 +58,18 @@ const App = () => {
   navigator.geolocation.getCurrentPosition(success, error, options);
 
 
-
+  const [loggedIn, setLoggedIn] = useState(false);
+  
 
   return (
     <div className="App">
       <header>
         <AuthProvider>
           <Router>
-            <Navbar />
+          <Navbar/>
             <Routes>
+
+
 
               <Route path='/' element={<Login />} />
               <Route path='/login' element={<Login />} />

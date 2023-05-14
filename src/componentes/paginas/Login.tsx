@@ -6,7 +6,9 @@ import { ChangeEvent, useState } from 'react'
 import AuthService from '../servicios/AuthService'
 import { Link } from 'react-router-dom'
 import * as React from 'react'
-
+import { useNavigate } from 'react-router-dom'
+import StatusLogin from '../Auth/StatusLogin'
+import App from '../../App'
 
 interface user{
   email:string ,
@@ -32,7 +34,11 @@ const Login = () => {
 
     })    
   }
- 
+
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
   
   const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
 
@@ -44,9 +50,12 @@ const Login = () => {
           localStorage.setItem("user", JSON.stringify(resp));
           inputValues.status=true;
           alert("Acceso Concedido....!!!!")
-          //alert(inputValues.status)
-          // aca  
-        }
+          setIsLoggedIn(true);
+          ;
+          navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
+          
+        }else
+        alert("Acceso Denegado....!!!!")
     } catch (error) {
       alert(error)
     } 
@@ -117,6 +126,9 @@ const Login = () => {
             
             <div className="d-grid gap-2">
               <button type="submit" className="btn btn-primary">
+
+              <StatusLogin isLoggedIn={isLoggedIn} /> 
+              {/* <App>setLoggedIn</App>               */}
                 Enviar
               </button>
             </div>
