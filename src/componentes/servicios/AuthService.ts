@@ -1,5 +1,5 @@
-import { Print } from "@syncfusion/ej2-react-maps";
-import axios, { formToJSON } from "axios";
+//import { Print } from "@syncfusion/ej2-react-maps";
+import axios from "axios";
 
 const API_URL = "http://localhost:8080/"
 
@@ -14,6 +14,7 @@ class AuthService {
         message
       });
     console.log(response);
+    localStorage.setItem('user', JSON.stringify(response));
     return response.data;
   }
   
@@ -24,7 +25,7 @@ class AuthService {
         email,
         password
       });
-    console.log(response);
+    console.log("Aca Yego La respuesta del AuthService....");
     return response.data;
       
   }

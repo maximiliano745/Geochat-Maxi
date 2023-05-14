@@ -1,10 +1,16 @@
-import React from "react";
-import { Navigate, Route, RouteProps } from "react-router-dom";
-import Login from "../paginas/Login";
+import React from 'react'
+import {Navigate, Route, RouteProps, RouterProps} from "react-router-dom"
+import useAuth from './useAuth';
 
-const PrivateRoute = (props: JSX.IntrinsicAttributes & RouteProps) => {
-  const token = localStorage.getItem("auth");
-  return <>{token ? <Route {...props} /> : <Navigate to="/login" />}</>;
-};
+
+interface PrivateRouteProps extends  RouterProps {}; // RouteProps
+
+export const PrivateRoute:React.FC<PrivateRouteProps> = ({ ...rest}) => {
+  const auth=useAuth();
+
+  if(auth.user!==null) return <Navigate to='/mapa' />;
+    return <Route { ...rest} />;
+  
+}
 
 export default PrivateRoute;

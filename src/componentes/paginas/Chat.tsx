@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-//const socket = new WebSocket("http://localhost:8080/ws");
-const socket = new WebSocket("ws://127.0.0.1:8080/ws");
+
+const socket = new WebSocket("ws:http://localhost:8080/ws");
+
+
 
 function Chat() {
   

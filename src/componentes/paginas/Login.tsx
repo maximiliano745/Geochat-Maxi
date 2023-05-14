@@ -4,11 +4,8 @@ import accountIcon from '../../imagenes/account.svg'
 import passwordIcon from  '../../imagenes/password.svg'
 import { ChangeEvent, useState } from 'react'
 import AuthService from '../servicios/AuthService'
-import { Link, Navigate, redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as React from 'react'
-
-
-
 
 
 interface user{
@@ -20,16 +17,13 @@ interface user{
 
 const Login = () => {
 
- 
 
   const [inputValues, setInputValues] = useState<user>({
     email:'',
     password:"",
     status:false
   });
-  
-
-  
+    
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setInputValues({
@@ -40,19 +34,17 @@ const Login = () => {
   }
  
   
-
-
   const handleSubmit = async (e:React.ChangeEvent<HTMLFormElement>) => {
 
     try {
         e.preventDefault();
         const resp = await AuthService.login(inputValues.email,inputValues.password);
-        if (resp != "{false}"){
-          console.log(resp)
+        if (resp !== "{false}"){
+          console.log("resp !=='false'")
           localStorage.setItem("user", JSON.stringify(resp));
           inputValues.status=true;
           alert("Acceso Concedido....!!!!")
-          alert(inputValues.status)
+          //alert(inputValues.status)
           // aca  
         }
     } catch (error) {
