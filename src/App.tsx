@@ -59,14 +59,14 @@ const App = () => {
 
 
   const [loggedIn, setLoggedIn] = useState(false);
-  
+
 
   return (
     <div className="App">
       <header>
         <AuthProvider>
           <Router>
-          <Navbar/>
+           <Navbar/>
             <Routes>
 
 
