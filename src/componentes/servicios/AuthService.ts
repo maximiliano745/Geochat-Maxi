@@ -31,11 +31,11 @@ class AuthService {
 
 
 
-  async mail(email: string, name: string, onmessage: string) {
+  async mail(email: string, name: string, message: string) {
     const response = await axios.post(API_URL + "api/user/mail", {
       email,
       name,
-      onmessage
+      message
     });
     console.log(response);
     localStorage.setItem('user', JSON.stringify(response));
