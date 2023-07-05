@@ -1,6 +1,6 @@
-import { useState } from "react";
 
-interface StatusLoginProps  {
+
+interface StatusLoginProps {
   isLoggedIn: boolean;
 }
 
@@ -8,7 +8,7 @@ function StatusLogin({ isLoggedIn }: StatusLoginProps) {
   return (
     <div>
       {isLoggedIn ? (
-        <p>¡Bienvenido! Acceso Concedido..!!!.</p>||true
+        <p>¡Bienvenido! Acceso Concedido..!!!.</p>
       ) : (
         <p>Por favor Iniciar Sesion</p>
       )}

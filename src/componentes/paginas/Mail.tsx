@@ -17,8 +17,6 @@ const Mail = () => {
   });
 
 
-
-
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setInputValues({
       ...inputValues,
@@ -26,9 +24,6 @@ const Mail = () => {
 
     })
   }
-
-
-
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 
@@ -40,17 +35,12 @@ const Mail = () => {
       if (resp !== "{false}") {
         console.log(resp)
         localStorage.setItem("user", JSON.stringify(resp));
-        //inputValues.status=true;
         alert("Enviado con Exito....!!!!")
-        //alert(inputValues.status)
-        // aca  
       }
     } catch (error) {
       alert(error)
     }
   }
-
-
 
   return (
     <>
@@ -62,8 +52,8 @@ const Mail = () => {
             <div className="mx-2 mt-1">
               <div className="form-group">
                 {/* <label htmlFor="name">Nombre</label> */}
-                <input type="text" className="form-control" id="name" value={inputValues.name} onChange={e => handleChange(e)} 
-                placeholder="nombre"/>
+                <input type="text" className="form-control" id="name" value={inputValues.name} onChange={e => handleChange(e)}
+                  placeholder="nombre" />
               </div>
             </div>
           </div>
@@ -72,8 +62,8 @@ const Mail = () => {
             <div className="mx-2 mt-1">
               <div className="form-group">
                 {/* <label htmlFor="exampleInputEmail1">Email</label> */}
-                <input type="email" className="form-control" id="email" aria-describedby="emailHelp" value={inputValues.email} onChange={e => handleChange(e)} 
-                placeholder='Email'/>
+                <input type="email" className="form-control" id="email" aria-describedby="emailHelp" value={inputValues.email} onChange={e => handleChange(e)}
+                  placeholder='Email' />
               </div>
             </div>
           </div>
@@ -88,7 +78,6 @@ const Mail = () => {
               </div>
             </div>
           </div>
-
 
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>

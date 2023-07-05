@@ -1,12 +1,9 @@
-//import { Print } from "@syncfusion/ej2-react-maps";
+
 import axios from "axios";
 
 const API_URL = "http://localhost:8080/"
 
-
-
 class AuthService {
-
 
   async createGeofence(latitude: any, longitude: any) {
     const url = 'https://api.radar.io/v1/geofences';
@@ -33,6 +30,7 @@ class AuthService {
   }
 
 
+
   async mail(email: string, name: string, onmessage: string) {
     const response = await axios.post(API_URL + "api/user/mail", {
       email,
@@ -43,6 +41,7 @@ class AuthService {
     localStorage.setItem('user', JSON.stringify(response));
     return response.data;
   }
+
 
 
   async login(email: string, password: string) {
@@ -56,9 +55,11 @@ class AuthService {
 
   }
 
+
   logout() {
     localStorage.removeItem("user");
   }
+
 
   async register(firstname: string, email: string, password: string) {
     const response = await axios.post(API_URL + "api/user/signup", {
@@ -69,13 +70,12 @@ class AuthService {
     return response.data;
   }
 
+
   getCurrentUser() {
     const userStr = localStorage.getItem("user");
     if (userStr) return JSON.parse(userStr);
-
     return null;
   }
 
 }
-
 export default new AuthService();

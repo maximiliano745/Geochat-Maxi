@@ -1,9 +1,9 @@
 import React from 'react';
-import Headers from '../Headers.scss';
+import '/home/maxi/Programas/Go/otro/front/geochat/src/componentes/paginas/Chat/Headers/Headers.css';
 
 const Headers=()=>(
-    <div className='Headers'>
-        <h2>Go y React Chat APP</h2>
+    <div  className="header">
+        <h2>El Chat de GEOCHAT </h2>
     </div>
 );
 export default Headers;

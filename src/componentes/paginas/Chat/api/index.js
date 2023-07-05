@@ -1,31 +1,32 @@
-var socket= new WebSocket('ws://localhost:8080/ws');  // Hera 9000!!!!
+var socket = new WebSocket('ws://localhost:8080/ws');  // Hera 9000!!!!
 
-let connect= (cb) =>{
+let connect = (cb) => {
     console.log("Conectando....");
 
-    socket.onopen=()=>{
+    socket.onopen = () => {
         console.log("Coneccion Habierta...!!!");
     }
 
-    socket.onmessage=(msg)=>{
-        console.log("Mensaje desde WebSocket: ",msg);
+    socket.onmessage = (msg) => {
+        console.log("Mensaje desde WebSocket: ", msg);
+        cb(msg);
     }
 
-    socket.onclose=(event)=>{
-        console.log("Coneccion Cerrada.....: ",event);
+    socket.onclose = (event) => {
+        console.log("Coneccion Cerrada.....: ", event);
     }
 
-    socket.onerror=(error)=>{
-        console.log("Socket Error: ",error);
+    socket.onerror = (error) => {
+        console.log("Socket Error: ", error);
     }
 };
 
-let sendMsg=(msg)=>{
+let sendMsg = (msg) => {
 
-    console.log("Mandando mensaje: ",msg);
+    console.log("Mandando mensaje: ", msg);
     socket.send(msg);
 
 }
 
-export {connect, sendMsg};
+export { connect, sendMsg };
 
