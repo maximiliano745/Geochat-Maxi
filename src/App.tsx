@@ -39,6 +39,8 @@ const App = () => {
 
   navigator.geolocation.getCurrentPosition(success, error, options);
 
+  
+
   return (
     <div className="App">
       <header>

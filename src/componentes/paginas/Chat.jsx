@@ -8,6 +8,7 @@ import ChatInput from "./Chat/ChatInput";
 
 
 class Chat extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
