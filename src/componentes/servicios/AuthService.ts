@@ -50,7 +50,7 @@ class AuthService {
         email,
         password
       });
-    console.log("Aca Yego La respuesta del AuthService....");
+    console.log("Aca Yego La respuesta del AuthService...."+response.data);
     return response.data;
 
   }

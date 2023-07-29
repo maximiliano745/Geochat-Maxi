@@ -49,6 +49,8 @@ const Login = () => {
         inputValues.status = true;
         alert("Acceso Concedido....!!!!")
 
+        sessionStorage.setItem("email", inputValues.email)
+        
         setIsLoggedIn(true);
         navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
 

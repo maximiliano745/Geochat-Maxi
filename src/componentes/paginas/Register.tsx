@@ -4,8 +4,7 @@ import accountIcon from '../../imagenes/account.svg'
 import passwordIcon from '../../imagenes/password.svg'
 import { ChangeEvent, useState } from 'react'
 import AuthService from '../servicios/AuthService'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
 
 
 interface user {
@@ -20,7 +19,7 @@ const Register = () => {
   const [inputValues, setInputValues] = useState<user>({
     email: '',
     password: "",
-    firstname: 'maxi',
+    firstname: '',
   });
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -31,6 +30,8 @@ const Register = () => {
     })
   }
 
+  const navigate = useNavigate();
+
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 
@@ -38,7 +39,9 @@ const Register = () => {
       e.preventDefault();
       const resp = await AuthService.register(inputValues.firstname, inputValues.email, inputValues.password);
       if (resp) {
-        console.log(resp)
+        alert(resp)
+        if (resp!=='{"message": Email Existente""}')
+          navigate('/Login');
       }
     } catch (error) {
       alert(error)
@@ -48,9 +51,9 @@ const Register = () => {
 
   return (
     <>
-      <div>Register</div><AuthCard name={'maxi'} mail={''} password={''} status={false} >
-
-        <form autoComplete="off" onSubmit={handleSubmit} >
+      <div >Register</div><AuthCard name={''} mail={''} password={''} status={false}  >
+       
+        <form autoComplete="off" onSubmit={handleSubmit}>
 
           <Link to="/">Acceso</Link>
 
@@ -69,7 +72,7 @@ const Register = () => {
                 alt="iconUser" />
             </div>
 
-            <input name="email" type="email" required
+            <input name="email" type="email" autoComplete='new-email' required 
               value={inputValues.email}
               autoFocus
               className="form-control border-0 txt-input"
@@ -88,12 +91,27 @@ const Register = () => {
             </div>
 
 
-            <input type='password' name="password" required
+            <input type='password' name="password" autoComplete='new-password'required
               value={inputValues.password}
               className="form-control border-0  txt-input"
               placeholder="Password"
               onChange={e => handleChange(e)} />
           </div>
+
+
+          <div className="mb-2 p-1 d-flex border rounded" >
+            <div className="mx-2 mt-1">
+
+              <input type='firstname' name="firstname" autoComplete='new-name'required
+                value={inputValues.firstname}
+                className="form-control border-0  txt-input"
+                placeholder="Nombre"
+                onChange={e => handleChange(e)} />
+
+            </div>
+          </div>
+
+
 
           <div className="row d-flex justify-content-between mt-3 mb-2">
             <div className="mb-3">
