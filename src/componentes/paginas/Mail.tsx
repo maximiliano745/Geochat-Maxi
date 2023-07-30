@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import AuthService from "../servicios/AuthService";
+//import { SpinnerCircular } from 'spinners-react';
 
 
 interface mail {
@@ -25,22 +26,25 @@ const Mail = () => {
     })
   }
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      //alert(inputValues.email)
-      //alert(inputValues.message)
       const resp = await AuthService.mail(inputValues.email, inputValues.name, inputValues.message);
       if (resp !== "{false}") {
         console.log(resp)
-        localStorage.setItem("user", JSON.stringify(resp));
+        //localStorage.setItem("user", JSON.stringify(resp));
         alert("Enviado con Exito....!!!!")
+        window.location.reload()
+
       }
     } catch (error) {
       alert(error)
     }
+
   }
+
+
 
   return (
     <>
@@ -53,7 +57,7 @@ const Mail = () => {
               <div className="form-group">
                 {/* <label htmlFor="name">Nombre</label> */}
                 <input type="text" className="form-control" id="name" value={inputValues.name} onChange={e => handleChange(e)}
-                  placeholder="nombre" />
+                  placeholder="nombre" required />
               </div>
             </div>
           </div>
@@ -63,7 +67,7 @@ const Mail = () => {
               <div className="form-group">
                 {/* <label htmlFor="exampleInputEmail1">Email</label> */}
                 <input type="email" className="form-control" id="email" aria-describedby="emailHelp" value={inputValues.email} onChange={e => handleChange(e)}
-                  placeholder='Email' />
+                  placeholder='Email' required />
               </div>
             </div>
           </div>
@@ -72,13 +76,13 @@ const Mail = () => {
           <div className="mb-2 p-1 d-flex border rounded">
             <div className="mx-2 mt-1">
 
-              <div className="form-group">
+              <div className="form-group" >
                 <label htmlFor="message">Messaje</label>
-                <textarea className="form-control" id="message" value={inputValues.message} onChange={e => handleChange(e)} />
+
+                <textarea className="form-control" id="message" value={inputValues.message} onChange={e => handleChange(e)} style={{ height: '144px', }} />
               </div>
             </div>
           </div>
-
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>

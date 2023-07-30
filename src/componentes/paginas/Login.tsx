@@ -17,6 +17,9 @@ interface user {
 
 const Login = () => {
 
+  localStorage.removeItem("user");
+  sessionStorage.removeItem("nombre");
+  sessionStorage.removeItem("email");
 
   const [inputValues, setInputValues] = useState<user>({
     email: '',
@@ -44,13 +47,15 @@ const Login = () => {
       e.preventDefault();
       const resp = await AuthService.login(inputValues.email, inputValues.password);
       if (resp !== "{false}") {
-        console.log("resp !=='false'")
-        localStorage.setItem("user", JSON.stringify(resp));
+        //alert(resp);
+        let cad = resp.split("{");
+        //alert(cad[0]);
+        sessionStorage.setItem("nombre", JSON.stringify(cad[0]));
         inputValues.status = true;
         alert("Acceso Concedido....!!!!")
 
         sessionStorage.setItem("email", inputValues.email)
-        
+
         setIsLoggedIn(true);
         navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
 

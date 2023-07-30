@@ -39,7 +39,7 @@ const App = () => {
 
   navigator.geolocation.getCurrentPosition(success, error, options);
 
-  
+
 
   return (
     <div className="App">
@@ -52,6 +52,7 @@ const App = () => {
               <Route path='/' element={<Login />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
+
               <Route path='/mapa' element={<Mapas />} />
               <Route path='/mail' element={<Mail />} />
               <Route path='/chat' element={<Chat />} />

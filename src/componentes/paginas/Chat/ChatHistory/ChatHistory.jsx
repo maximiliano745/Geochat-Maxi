@@ -9,7 +9,7 @@ class ChatHistory extends Component {
         ));
 
         return (
-            <div className='ChatIstory'>
+            <div className='ChatHistory'>
                 <h2>Historial del Chat</h2>
                 {messages}
             </div>

@@ -40,7 +40,7 @@ const Register = () => {
       const resp = await AuthService.register(inputValues.firstname, inputValues.email, inputValues.password);
       if (resp) {
         alert(resp)
-        if (resp!=='{"message": Email Existente""}')
+        if (resp !== '{"message": Email Existente""}')
           navigate('/Login');
       }
     } catch (error) {
@@ -52,8 +52,8 @@ const Register = () => {
   return (
     <>
       <div >Register</div><AuthCard name={''} mail={''} password={''} status={false}  >
-       
-        <form autoComplete="off" onSubmit={handleSubmit}>
+
+        <form autoComplete="new-form" onSubmit={handleSubmit}>
 
           <Link to="/">Acceso</Link>
 
@@ -72,7 +72,7 @@ const Register = () => {
                 alt="iconUser" />
             </div>
 
-            <input name="email" type="email" autoComplete='new-email' required 
+            <input name="email" type="email" autoComplete='new-email' required
               value={inputValues.email}
               autoFocus
               className="form-control border-0 txt-input"
@@ -90,8 +90,7 @@ const Register = () => {
                 alt="iconUser" />
             </div>
 
-
-            <input type='password' name="password" autoComplete='new-password'required
+            <input type='password' name="password" autoComplete='new-password' required
               value={inputValues.password}
               className="form-control border-0  txt-input"
               placeholder="Password"
@@ -99,18 +98,22 @@ const Register = () => {
           </div>
 
 
-          <div className="mb-2 p-1 d-flex border rounded" >
+          <div className="mb-2 p-1 d-flex border rounded">
             <div className="mx-2 mt-1">
-
-              <input type='firstname' name="firstname" autoComplete='new-name'required
-                value={inputValues.firstname}
-                className="form-control border-0  txt-input"
-                placeholder="Nombre"
-                onChange={e => handleChange(e)} />
-
+              <img
+                className="img-fluid"
+                src={accountIcon}
+                alt="iconUser" />
             </div>
-          </div>
 
+            <input type='firstname' name="firstname" autoComplete='new-name' required
+              value={inputValues.firstname}
+              className="form-control border-0  txt-input"
+              placeholder="Nombre"
+              onChange={e => handleChange(e)}>
+            </input>
+
+          </div>
 
 
           <div className="row d-flex justify-content-between mt-3 mb-2">

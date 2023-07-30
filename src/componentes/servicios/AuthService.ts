@@ -38,7 +38,7 @@ class AuthService {
       message
     });
     console.log(response);
-    localStorage.setItem('user', JSON.stringify(response));
+    //localStorage.setItem('user', JSON.stringify(response));
     return response.data;
   }
 
@@ -50,7 +50,7 @@ class AuthService {
         email,
         password
       });
-    console.log("Aca Yego La respuesta del AuthService...."+response.data);
+    console.log("Aca Yego La respuesta del AuthService...." + response.data);
     return response.data;
 
   }
