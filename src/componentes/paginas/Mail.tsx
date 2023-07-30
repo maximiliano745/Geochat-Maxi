@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from "react";
 import AuthService from "../servicios/AuthService";
 //import { SpinnerCircular } from 'spinners-react';
 
-
 interface mail {
   email: string,
   name: string,
@@ -26,7 +25,6 @@ const Mail = () => {
     })
   }
 
-
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -43,8 +41,6 @@ const Mail = () => {
     }
 
   }
-
-
 
   return (
     <>

@@ -7,7 +7,6 @@ import AuthService from '../servicios/AuthService'
 import { Link } from 'react-router-dom'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import StatusLogin from '../Auth/StatusLogin'
 
 interface user {
   email: string,
@@ -15,11 +14,18 @@ interface user {
   status: boolean
 }
 
-const Login = () => {
+interface LoginProps {
+  onLogin: () => void;
+}
+
+const Login = ({ onLogin }: LoginProps) => {
 
   localStorage.removeItem("user");
   sessionStorage.removeItem("nombre");
   sessionStorage.removeItem("email");
+  sessionStorage.removeItem("token");
+  //sessionStorage.removeItem("status");
+  
 
   const [inputValues, setInputValues] = useState<user>({
     email: '',
@@ -36,52 +42,43 @@ const Login = () => {
     })
   }
 
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const navigate = useNavigate();
-
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 
     try {
       e.preventDefault();
       const resp = await AuthService.login(inputValues.email, inputValues.password);
-      if (resp !== "{false}") {
-        //alert(resp);
-        let cad = resp.split("{");
-        //alert(cad[0]);
-        sessionStorage.setItem("nombre", JSON.stringify(cad[0]));
-        inputValues.status = true;
-        alert("Acceso Concedido....!!!!")
-
-        sessionStorage.setItem("email", inputValues.email)
-
-        setIsLoggedIn(true);
+      //const responseJson = JSON.parse(resp);
+      console.log(resp);
+      if (resp.status) {
+        alert("Acceso Concedido....!!!!");
+        sessionStorage.setItem("email", resp.mail);
+        sessionStorage.setItem("token", resp.token);
+        sessionStorage.setItem("nombre", resp.nombre);
+        sessionStorage.setItem("status", resp.status);
+        onLogin();
         navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
-
-      } else
-        alert("Acceso Denegado....!!!!")
+      } else {
+        alert("Acceso Denegado....!!!!");
+      }
     } catch (error) {
-      alert(error)
+      alert(error);
     }
   }
-
-
 
   return (
     <>
       <div>Login</div><AuthCard name={'maxi'} mail={''} password={''} status={false}>
 
         <form autoComplete="off" onSubmit={handleSubmit} >
-
           <Link to="/register">Registro</Link>
-
           <div className="text-center mb-2">
             <img
               className="img-fluid"
               src={logo}
               alt="login" />
           </div>
+
           <div className="mb-2 p-1 d-flex border rounded">
             <div className="mx-2 mt-1">
               <img
@@ -107,7 +104,6 @@ const Login = () => {
                 alt="iconUser" />
             </div>
 
-
             <input type='password' name="password" required
               value={inputValues.password}
               className="form-control border-0  txt-input"
@@ -130,23 +126,17 @@ const Login = () => {
           </div>
 
           <div className="d-grid gap-2">
-
             <button type="submit" className="btn btn-primary">
-              <StatusLogin isLoggedIn={isLoggedIn} />
               Enviar
             </button>
-
           </div>
-
           <div className="mt-3 mb-3 text-center">
-
           </div>
         </form>
+
       </AuthCard></>
 
   )
 }
-
-
 Login.propTypes = {}
 export default Login

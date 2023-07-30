@@ -30,7 +30,6 @@ class AuthService {
   }
 
 
-
   async mail(email: string, name: string, message: string) {
     const response = await axios.post(API_URL + "api/user/mail", {
       email,
@@ -42,15 +41,13 @@ class AuthService {
     return response.data;
   }
 
-
-
   async login(email: string, password: string) {
     const response = await axios
       .post(API_URL + "api/user/login", {
         email,
         password
       });
-    console.log("Aca Yego La respuesta del AuthService...." + response.data);
+    console.log("Aca Yego La respuesta del AuthService...." + response);
     return response.data;
 
   }
