@@ -24,8 +24,8 @@ const Login = ({ onLogin }: LoginProps) => {
   sessionStorage.removeItem("nombre");
   sessionStorage.removeItem("email");
   sessionStorage.removeItem("token");
-  //sessionStorage.removeItem("status");
-  
+  sessionStorage.removeItem("status");
+  //localStorage.setItem('isWelcomeMessageShown',"false");
 
   const [inputValues, setInputValues] = useState<user>({
     email: '',
@@ -56,9 +56,11 @@ const Login = ({ onLogin }: LoginProps) => {
         sessionStorage.setItem("token", resp.token);
         sessionStorage.setItem("nombre", resp.nombre);
         sessionStorage.setItem("status", resp.status);
+        localStorage.setItem('status2',"true")
         onLogin();
         navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
       } else {
+        localStorage.setItem('status2',"false")
         alert("Acceso Denegado....!!!!");
       }
     } catch (error) {

@@ -16,7 +16,7 @@ function StatusLogin({ isLoggedIn }: StatusLoginProps) {
       // Ocultar el mensaje de bienvenida después de 5 segundos
       setTimeout(() => {
         setShowWelcomeMessage(false);
-      }, 5000);
+      }, 4000);
     }
   }, [isLoggedIn, isWelcomeMessageShown]);
 

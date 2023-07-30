@@ -12,10 +12,6 @@ import StatusLogin from './componentes/Auth/StatusLogin';
 
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
-
 
   let lat: any, lon: any
 
@@ -52,6 +48,8 @@ const App = () => {
     console.log('Tarea repetida realizada');
   };
 
+
+
   // UseEffect para iniciar el temporizador al montar el componente
   useEffect(() => {
     // Tarea única que se ejecutará una sola vez
@@ -64,8 +62,11 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+
   navigator.geolocation.getCurrentPosition(success, error, options);
 
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = () => {
     // Aquí puedes realizar la lógica de inicio de sesión.
