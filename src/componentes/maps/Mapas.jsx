@@ -15,15 +15,35 @@ const Mapas = () => {
 
   lon = +sessionStorage.getItem("lon");
   lat = +sessionStorage.getItem("lat");
-
+  
   const markers = [
     {
       geocde: [lat, lon],
       poPup: "Aca estoy Yo-----",
     },
     {
+      geocde: [-34.88, -57.95],
+      poPup: "Cerca 1",
+    },
+    {
+      geocde: [-34.88977157126982, -57.95808382745051],
+      poPup: "Cerca 2",
+    },
+    {
+      geocde: [-34.89645958075579, -57.9549510073025],
+      poPup: "Cerca 3 ",
+    },
+    {
+      geocde: [-34.90019054947647, -57.96192475078524],
+      poPup: "Cerca 4",
+    },
+    {
+      geocde: [-34.904991766767594, -57.9672312047735],
+      poPup: "Cerca 5",
+    },
+    {
       geocde: [-36.90360720582748, -57.93253794149154],
-      poPup: "Aca Otro cero"
+      poPup: "Cerca 6"
     },
     {
       geocde: [-35.902164359577824, -57.926010680031034],
