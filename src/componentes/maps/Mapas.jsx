@@ -1,5 +1,5 @@
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, FeatureGroup } from 'react-leaflet'
 //import { iconPerson } from './Marker'
 import "leaflet/dist/leaflet.css"
 import ThreeDRotation from '@material-ui/icons/AccessibilityNewOutlined';
@@ -7,6 +7,10 @@ import MarkerClousterGroup from "react-leaflet-cluster";
 //import { Icon } from '@material-ui/core';
 import { Icon, divIcon } from 'leaflet'
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
+import 'leaflet/dist/leaflet.css'
+import 'leaflet-draw/dist/leaflet.draw.css'
+import { EditControl } from "react-leaflet-draw"
+
 
 //function Mapas(): JSX.Element {
 const Mapas = () => {
@@ -70,12 +74,12 @@ const Mapas = () => {
 
   const custoIcon = new Icon({
     iconUrl: require('../../imagenes/icon.png'),
-    iconSize: [38, 38],
+    iconSize: [30, 30],
   })
 
   const createCustomClusterIcon = (cluster) => {
     return new divIcon({
-      html: `<div> class="cluster-icon"${cluster.getChildCount()}</div>`,
+      html:<div class="cluster-icon">${cluster.getChildCount()}</div>,
       className: "custom-marker-cluster",
       color: 'secundary'
       //iconSize: point(33,33,true)
@@ -85,31 +89,33 @@ const Mapas = () => {
   //alert(lon)
   return (
     <div>
-      <h2 className="title">Mi Mapa</h2>
-      <MapContainer style={{ height: "450px", width: "100%" }} center={[lat, lon]} zoom={6}>
-        <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <h3 className="title">Mi Mapa</h3>
 
-        <MarkerClousterGroup
-          chunkedLoading
-          inconCreateFunction={createCustomClusterIcon}
-        >
-          {markers.map((mm, index) => (
-            
-            <Marker position={mm.geocde} icon={custoIcon} key={index} color='secondary'>
-              <Popup>
-                {mm.poPup}
-                <ThreeDRotation color='primary' />
-                <LocationSearchingIcon/>
-              </Popup>
-            </Marker>
-          ))}
-        </MarkerClousterGroup>
+      <MapContainer style={{ height: "550px", width: "100%" }} center={[lat, lon]} zoom={6}>
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
+          <MarkerClousterGroup
+            chunkedLoading
+            inconCreateFunction={createCustomClusterIcon}
+          >
+            {markers.map((mm, index) => (
 
+              <Marker position={mm.geocde} icon={custoIcon} key={index} color='secondary'>
+                <Popup>
+                  {mm.poPup}
+                  <ThreeDRotation color='primary' />
+                  <LocationSearchingIcon />
+                </Popup>
+              </Marker>
+            ))}
 
-        
+          </MarkerClousterGroup >
+
+        <FeatureGroup>
+          <EditControl className='control-edit' />
+        </FeatureGroup>
       </MapContainer>
     </div>
   )

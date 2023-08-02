@@ -19,7 +19,7 @@ const Navbar = () => {
             {/* <Link className="nav-link" to="/mapa"> Mapa</Link> */}
             <Link to="/mapa">
               
-                <FaEye size={28} text-alignmentBaseline />
+                <FaEye size={28} />
                 {/* <IoEyeSharp /> */}
               
             </Link>
