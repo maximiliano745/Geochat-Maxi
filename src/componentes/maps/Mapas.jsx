@@ -5,7 +5,8 @@ import "leaflet/dist/leaflet.css"
 import ThreeDRotation from '@material-ui/icons/AccessibilityNewOutlined';
 import MarkerClousterGroup from "react-leaflet-cluster";
 //import { Icon } from '@material-ui/core';
-import {Icon, divIcon} from 'leaflet'
+import { Icon, divIcon } from 'leaflet'
+import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 
 //function Mapas(): JSX.Element {
 const Mapas = () => {
@@ -15,7 +16,7 @@ const Mapas = () => {
 
   lon = +sessionStorage.getItem("lon");
   lat = +sessionStorage.getItem("lat");
-  
+
   const markers = [
     {
       geocde: [lat, lon],
@@ -67,22 +68,23 @@ const Mapas = () => {
     }
   ]
 
-  const custoIcon=new Icon({
+  const custoIcon = new Icon({
     iconUrl: require('../../imagenes/icon.png'),
-    iconSize:[38,38]
+    iconSize: [38, 38],
   })
 
   const createCustomClusterIcon = (cluster) => {
     return new divIcon({
-      html:`<div> class="cluster-icon"${cluster.getChildCount()}</div>`,
-      className:"custom-marker-cluster"
+      html: `<div> class="cluster-icon"${cluster.getChildCount()}</div>`,
+      className: "custom-marker-cluster",
+      color: 'secundary'
       //iconSize: point(33,33,true)
     })
   }
 
   //alert(lon)
   return (
-    <div style={{ height: "450px", width: "100%" }}>
+    <div>
       <h2 className="title">Mi Mapa</h2>
       <MapContainer style={{ height: "450px", width: "100%" }} center={[lat, lon]} zoom={6}>
         <TileLayer
@@ -94,15 +96,20 @@ const Mapas = () => {
           inconCreateFunction={createCustomClusterIcon}
         >
           {markers.map((mm, index) => (
-
-            <Marker position={mm.geocde} icon={custoIcon} key={index}>
+            
+            <Marker position={mm.geocde} icon={custoIcon} key={index} color='secondary'>
               <Popup>
                 {mm.poPup}
-                <ThreeDRotation />
+                <ThreeDRotation color='primary' />
+                <LocationSearchingIcon/>
               </Popup>
             </Marker>
           ))}
         </MarkerClousterGroup>
+
+
+
+        
       </MapContainer>
     </div>
   )
