@@ -1,4 +1,3 @@
-import { blue } from '@material-ui/core/colors';
 import L from 'leaflet';
 
 const iconPerson = new L.Icon({

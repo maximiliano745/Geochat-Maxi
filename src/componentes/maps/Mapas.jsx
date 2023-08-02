@@ -1,7 +1,11 @@
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { iconPerson } from './Marker'
+//import { iconPerson } from './Marker'
 import "leaflet/dist/leaflet.css"
+import ThreeDRotation from '@material-ui/icons/AccessibilityNewOutlined';
+import MarkerClousterGroup from "react-leaflet-cluster";
+//import { Icon } from '@material-ui/core';
+import {Icon, divIcon} from 'leaflet'
 
 //function Mapas(): JSX.Element {
 const Mapas = () => {
@@ -15,7 +19,7 @@ const Mapas = () => {
   const markers = [
     {
       geocde: [lat, lon],
-      poPup: "Aca esto Yo",
+      poPup: "Aca estoy Yo-----",
     },
     {
       geocde: [-36.90360720582748, -57.93253794149154],
@@ -43,27 +47,42 @@ const Mapas = () => {
     }
   ]
 
- 
+  const custoIcon=new Icon({
+    iconUrl: require('../../imagenes/icon.png'),
+    iconSize:[38,38]
+  })
+
+  const createCustomClusterIcon = (cluster) => {
+    return new divIcon({
+      html:`<div> class="cluster-icon"${cluster.getChildCount()}</div>`,
+      className:"custom-marker-cluster"
+      //iconSize: point(33,33,true)
+    })
+  }
 
   //alert(lon)
   return (
-    <div>
-      <h1 className="title">Mi Mapa</h1>
-
+    <div style={{ height: "450px", width: "100%" }}>
+      <h2 className="title">Mi Mapa</h2>
       <MapContainer style={{ height: "450px", width: "100%" }} center={[lat, lon]} zoom={6}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-        {markers.map((mm, index) => (
-          
-          <Marker  position={mm.geocde} icon={iconPerson}key={index}>
-            <Popup>
-              {mm.poPup}
-            </Popup>
-          </Marker>
-        ))}
+        <MarkerClousterGroup
+          chunkedLoading
+          inconCreateFunction={createCustomClusterIcon}
+        >
+          {markers.map((mm, index) => (
 
+            <Marker position={mm.geocde} icon={custoIcon} key={index}>
+              <Popup>
+                {mm.poPup}
+                <ThreeDRotation />
+              </Popup>
+            </Marker>
+          ))}
+        </MarkerClousterGroup>
       </MapContainer>
     </div>
   )
