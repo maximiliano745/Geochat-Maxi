@@ -48,21 +48,25 @@ const Login = ({ onLogin }: LoginProps) => {
     try {
       e.preventDefault();
       const resp = await AuthService.login(inputValues.email, inputValues.password);
-      //const responseJson = JSON.parse(resp);
-      console.log(resp);
-      if (resp.status) {
-        alert("Acceso Concedido....!!!!");
-        sessionStorage.setItem("email", resp.mail);
-        sessionStorage.setItem("token", resp.token);
-        sessionStorage.setItem("nombre", resp.nombre);
-        sessionStorage.setItem("status", resp.status);
-        localStorage.setItem('status2',"true")
-        onLogin();
-        navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
+   
+      console.log("Respuesta del login: ", resp.data);
+
+      if (resp.data === '{"OK!!, Email EXISTENTE....!!!"}') {
+          // Manejar el éxito del inicio de sesión
+          alert("Acceso Concedido....!!!!");
+          console.log("Inicio de sesión exitoso");
+          // Puedes acceder a los datos de la respuesta utilizando response.data
+          onLogin();
+          navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
+          return resp.data;
       } else {
-        localStorage.setItem('status2',"false")
-        alert("Acceso Denegado....!!!!");
-      }
+          // Manejar otros códigos de estado (p. ej., 400 para errores de solicitud)
+          alert(resp.data)
+          console.log("Error en la solicitud:");
+         return null; // o lanzar una excepción, según tus necesidades
+      }   
+   
+  
     } catch (error) {
       alert(error);
     }

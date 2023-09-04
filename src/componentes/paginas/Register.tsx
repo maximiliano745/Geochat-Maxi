@@ -40,11 +40,11 @@ const Register = () => {
       const resp = await AuthService.register(inputValues.firstname, inputValues.email, inputValues.password);
       if (resp) {
         alert(resp)
-        if (resp !== '{"message": Email Existente""}')
+        if (resp !== '{"Error Email EXISTENTE....!!!"}')
           navigate('/Login');
       }
     } catch (error) {
-      alert(error)
+      console.log(error)
     }
   }
 

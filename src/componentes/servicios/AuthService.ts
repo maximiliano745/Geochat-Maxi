@@ -1,33 +1,12 @@
 
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/"
+//const API_URL = "http://localhost:8080/"
+//const API_URL = "http://localhost:9000/"
+const API_URL = "https://geochat-efn9.onrender.com/"
+
 
 class AuthService {
-
-  async createGeofence(latitude: any, longitude: any) {
-    const url = 'https://api.radar.io/v1/geofences';
-
-    const payload = {
-      description: 'Mi geovalla',
-      type: 'circle',
-
-
-      coordinates: [latitude, longitude],
-      radius: 1000,
-      tag: 'mi-tag',
-    };
-
-    const config = {
-      headers: {
-        Authorization: 'prj_live_sk_b2b65571e9edc3c8e171c80e846dc7bb28862b2a',
-        'Content-Type': 'application/json',
-      },
-    }
-
-    const response = await axios.post(url, payload, config);
-    console.log("aca createGeofence---------------", response)
-  }
 
 
   async mail(email: string, name: string, message: string) {
@@ -41,14 +20,14 @@ class AuthService {
     return response.data;
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, pasword: string) {
     const response = await axios
-      .post(API_URL + "api/user/login", {
+      .post(API_URL + "api/v2/users/login", {
         email,
-        password
+        pasword
       });
-    console.log("Aca Yego La respuesta del AuthService...." + response);
-    return response.data;
+    console.log("Aca Yego La respuesta del login data:" + response.data+"   status:",response.status);
+    return response;
 
   }
 
@@ -58,12 +37,13 @@ class AuthService {
   }
 
 
-  async register(firstname: string, email: string, password: string) {
-    const response = await axios.post(API_URL + "api/user/signup", {
-      firstname,
+  async register(username: string, email: string, pasword: string) {
+    const response = await axios.post(API_URL + "api/v2/users/", {
+      username,
       email,
-      password
+      pasword
     });
+    //console.log("Aca Yego La respuesta del register data : " + response.data + "    status:  "+ response.status);
     return response.data;
   }
 
