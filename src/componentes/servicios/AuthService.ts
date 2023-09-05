@@ -9,7 +9,7 @@ class AuthService {
 
 
   async mail(email: string, name: string, message: string) {
-    const response = await axios.post(API_URL + "api/user/mail", {
+    const response = await axios.post(API_URL + "api/v2/users/api/user/mail", {
       email,
       name,
       message
