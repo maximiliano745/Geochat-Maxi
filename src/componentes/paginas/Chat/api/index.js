@@ -1,4 +1,5 @@
-var socket = new WebSocket('ws://localhost:8080/ws');  // Hera 9000!!!!
+//var socket = new WebSocket('ws://localhost:8080/ws');  // Hera 9000!!!!
+var socket = new WebSocket('ws://https://geochat-efn9.onrender.com/ws');
 
 let connect = (cb) => {
     console.log("Conectando....");
