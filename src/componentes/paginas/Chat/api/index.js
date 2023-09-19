@@ -3,7 +3,7 @@
 //var socket = new WebSocket('wss://https://geochat-efn9.onrender.com/api/v2/users/ws');
 
 const API_URL = "https://geochat-efn9.onrender.com"
-const socket = new WebSocket("wss://" + API_URL + "/api/v2/users/ws");
+const socket = new WebSocket('ws://' + API_URL + '/api/v2/users/ws');
 
 
 let connect = (cb) => {
