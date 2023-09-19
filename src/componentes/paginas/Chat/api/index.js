@@ -5,7 +5,7 @@
 const API_URL = "geochat-efn9.onrender.com"
 //const socket = new WebSocket('wss://' + API_URL + '/wss');
 
-const socket = new WebSocket('wss://' + API_URL + '/api/v2/users/wss');
+const socket = new WebSocket(API_URL + '/api/v2/users/wss');
 
 
 let connect = (cb) => {
