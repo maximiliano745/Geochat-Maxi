@@ -1,7 +1,7 @@
 
 import axios from "axios";
 
-//const API_URL = "http://localhost:9000/"
+//const API_URL = "http://localhost:5555/"
 const API_URL = "https://geochat-efn9.onrender.com/"
 
 
