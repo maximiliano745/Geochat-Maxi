@@ -26,7 +26,6 @@ const Login = ({ onLogin }: LoginProps) => {
   sessionStorage.removeItem("email");
   sessionStorage.removeItem("token");
   sessionStorage.removeItem("status");
-  //localStorage.setItem('isWelcomeMessageShown',"false");
 
   const [inputValues, setInputValues] = useState<user>({
     email: '',
@@ -53,12 +52,10 @@ const Login = ({ onLogin }: LoginProps) => {
       console.log("Respuesta del login: ", resp.data);
 
       if (resp.data === '{"OK!!, Email EXISTENTE....!!!"}') {
-          // Manejar el éxito del inicio de sesión
           alert("Acceso Concedido....!!!!");
           console.log("Inicio de sesión exitoso");
-          // Puedes acceder a los datos de la respuesta utilizando response.data
           onLogin();
-          navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
+          navigate('/mapa');
           return resp.data;
       } else {
           setIsLoading(false);
