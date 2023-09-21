@@ -7,6 +7,7 @@ import AuthService from '../servicios/AuthService'
 import { Link } from 'react-router-dom'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { PropagateLoader } from 'react-spinners';
 
 interface user {
   email: string,
@@ -33,22 +34,22 @@ const Login = ({ onLogin }: LoginProps) => {
     status: false
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setInputValues({
       ...inputValues,
       [e.target.name]: e.target.value,
-
     })
   }
 
   const navigate = useNavigate();
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-
     try {
       e.preventDefault();
+      setIsLoading(true);
       const resp = await AuthService.login(inputValues.email, inputValues.password);
-   
       console.log("Respuesta del login: ", resp.data);
 
       if (resp.data === '{"OK!!, Email EXISTENTE....!!!"}') {
@@ -60,20 +61,27 @@ const Login = ({ onLogin }: LoginProps) => {
           navigate('/mapa'); // redirigir a Component2 si la respuesta es exitosa
           return resp.data;
       } else {
-          // Manejar otros códigos de estado (p. ej., 400 para errores de solicitud)
+          setIsLoading(false);
           alert(resp.data)
           console.log("Error en la solicitud:");
-         return null; // o lanzar una excepción, según tus necesidades
+         return null;
       }   
    
   
     } catch (error) {
       alert(error);
     }
+    setIsLoading(false);
   }
 
   return (
     <>
+    {isLoading ? (
+      <div className="spinner-container">
+        <PropagateLoader color="#010c0a" />
+      </div>
+    ) : null}
+
       <div>Login</div><AuthCard name={'maxi'} mail={''} password={''} status={false}>
 
         <form autoComplete="off" onSubmit={handleSubmit} >
@@ -141,7 +149,6 @@ const Login = ({ onLogin }: LoginProps) => {
         </form>
 
       </AuthCard></>
-
   )
 }
 Login.propTypes = {}
