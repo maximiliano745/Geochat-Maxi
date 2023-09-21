@@ -5,6 +5,7 @@ import passwordIcon from '../../imagenes/password.svg'
 import { ChangeEvent, useState } from 'react'
 import AuthService from '../servicios/AuthService'
 import { Link, useNavigate } from 'react-router-dom'
+import { PropagateLoader } from 'react-spinners';
 
 
 interface user {
@@ -22,6 +23,8 @@ const Register = () => {
     firstname: '',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setInputValues({
       ...inputValues,
@@ -37,6 +40,7 @@ const Register = () => {
 
     try {
       e.preventDefault();
+      setIsLoading(true);
       const resp = await AuthService.register(inputValues.firstname, inputValues.email, inputValues.password);
       if (resp) {
         alert(resp)
@@ -44,13 +48,22 @@ const Register = () => {
           navigate('/Login');
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error)
     }
+    setIsLoading(false);
   }
 
 
   return (
     <>
+
+      {isLoading ? (
+        <div className="spinner-container">
+          <PropagateLoader color="#010c0a" />
+        </div>
+      ) : null}
+
       <div >Register</div><AuthCard name={''} mail={''} password={''} status={false}  >
 
         <form autoComplete="new-form" onSubmit={handleSubmit}>

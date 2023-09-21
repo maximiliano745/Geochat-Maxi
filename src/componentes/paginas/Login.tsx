@@ -52,19 +52,19 @@ const Login = ({ onLogin }: LoginProps) => {
       console.log("Respuesta del login: ", resp.data);
 
       if (resp.data === '{"OK!!, Email EXISTENTE....!!!"}') {
-          alert("Acceso Concedido....!!!!");
-          console.log("Inicio de sesión exitoso");
-          onLogin();
-          navigate('/mapa');
-          return resp.data;
+        alert("Acceso Concedido....!!!!");
+        console.log("Inicio de sesión exitoso");
+        onLogin();
+        navigate('/mapa');
+        return resp.data;
       } else {
-          setIsLoading(false);
-          alert(resp.data)
-          console.log("Error en la solicitud:");
-         return null;
-      }   
-   
-  
+        setIsLoading(false);
+        alert(resp.data)
+        console.log("Error en la solicitud:");
+        return null;
+      }
+
+
     } catch (error) {
       alert(error);
     }
@@ -73,11 +73,11 @@ const Login = ({ onLogin }: LoginProps) => {
 
   return (
     <>
-    {isLoading ? (
-      <div className="spinner-container">
-        <PropagateLoader color="#010c0a" />
-      </div>
-    ) : null}
+      {isLoading ? (
+        <div className="spinner-container">
+          <PropagateLoader color="#010c0a" />
+        </div>
+      ) : null}
 
       <div>Login</div><AuthCard name={'maxi'} mail={''} password={''} status={false}>
 
