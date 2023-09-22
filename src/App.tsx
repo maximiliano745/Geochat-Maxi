@@ -15,15 +15,9 @@ const App = () => {
 
   let lat: any, lon: any
 
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
-
   function success(pos: { coords: any; }) {
     const crd = pos.coords;
-
+    alert('No ES Celular...');
     lat = parseFloat(`${crd.latitude}`);
     lon = parseFloat(`${crd.longitude}`);
 
@@ -37,7 +31,45 @@ const App = () => {
   function error(err: { code: any; message: any; }) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
+  
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+ 
 
+  if (/Mobi|Android/i.test(navigator.userAgent)) {
+    alert('Es Movil');
+    fetch('https://geochat-efn9.onrender.com/api/v3/users/movil', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: 'correo@example.com',
+        password: 'contraseña',
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      if (data.status) {
+        //alert('Acceso concedido');
+      } else {
+        alert(data.msg);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }else{
+    navigator.geolocation.getCurrentPosition(success, error, options);
+    console.log('No Es Movil');
+  }
+
+
+ 
   // Función para realizar la tarea que se ejecutará una sola vez
   const tareaUnica = () => {
     console.log('Tarea única realizada');
@@ -63,7 +95,6 @@ const App = () => {
   }, []);
 
 
-  navigator.geolocation.getCurrentPosition(success, error, options);
 
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
