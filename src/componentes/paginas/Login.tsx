@@ -49,9 +49,9 @@ const Login = ({ onLogin }: LoginProps) => {
       e.preventDefault();
       setIsLoading(true);
       const resp = await AuthService.login(inputValues.email, inputValues.password);
-      console.log("Respuesta del login: ", resp.data);
+      console.log("Respuesta del login: ", resp);
 
-      if (resp.data === '{"OK!!, Email EXISTENTE....!!!"}') {
+      if (resp === '{"OK!!, Email EXISTENTE....!!!"}') {
         alert("Acceso Concedido....!!!!");
         console.log("Inicio de sesión exitoso");
         onLogin();
@@ -60,7 +60,7 @@ const Login = ({ onLogin }: LoginProps) => {
       } else {
         setIsLoading(false);
         alert(resp.data)
-        console.log("Error en la solicitud:");
+        console.log("Error en la solicitud:" + resp);
         return null;
       }
 
@@ -148,5 +148,6 @@ const Login = ({ onLogin }: LoginProps) => {
       </AuthCard></>
   )
 }
+
 Login.propTypes = {}
 export default Login

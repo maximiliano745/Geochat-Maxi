@@ -7,7 +7,7 @@ import Mapas from './componentes/maps/Mapas';
 import Mail from './componentes/paginas/Mail';
 import Chat from './componentes/paginas/Chat';
 import AuthProvider from './componentes/Auth/AuthProvider';
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import StatusLogin from './componentes/Auth/StatusLogin';
 
 
@@ -17,7 +17,7 @@ const App = () => {
 
   function success(pos: { coords: any; }) {
     const crd = pos.coords;
-    alert('No ES Celular...');
+    //alert('No ES Celular...');
     lat = parseFloat(`${crd.latitude}`);
     lon = parseFloat(`${crd.longitude}`);
 
@@ -31,13 +31,13 @@ const App = () => {
   function error(err: { code: any; message: any; }) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
-  
+
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0
   };
- 
+
 
   if (/Mobi|Android/i.test(navigator.userAgent)) {
     alert('Es Movil');
@@ -51,25 +51,25 @@ const App = () => {
         password: 'contraseña',
       }),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      if (data.status) {
-        //alert('Acceso concedido');
-      } else {
-        alert(data.msg);
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  }else{
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status) {
+          //alert('Acceso concedido');
+        } else {
+          alert(data.msg);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  } else {
     navigator.geolocation.getCurrentPosition(success, error, options);
     console.log('No Es Movil');
   }
 
 
- 
+
   // Función para realizar la tarea que se ejecutará una sola vez
   const tareaUnica = () => {
     console.log('Tarea única realizada');
@@ -84,6 +84,7 @@ const App = () => {
 
   // UseEffect para iniciar el temporizador al montar el componente
   useEffect(() => {
+    
     // Tarea única que se ejecutará una sola vez
     tareaUnica();
 
@@ -96,12 +97,10 @@ const App = () => {
 
 
 
-  
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = () => {
-    // Aquí puedes realizar la lógica de inicio de sesión.
-    // Si el inicio de sesión es exitoso, llama a setIsLoggedIn(true).
     setIsLoggedIn(true);
   };
 
@@ -129,5 +128,4 @@ const App = () => {
     </div>
   );
 }
-
 export default App;

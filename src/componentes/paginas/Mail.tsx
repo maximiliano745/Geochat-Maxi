@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import AuthService from "../servicios/AuthService";
-//import { SpinnerCircular } from 'spinners-react';
+import { PropagateLoader } from 'react-spinners';
 
 interface mail {
   email: string,
@@ -24,26 +24,34 @@ const Mail = () => {
 
     })
   }
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      setIsLoading(true);
       const resp = await AuthService.mail(inputValues.email, inputValues.name, inputValues.message);
       if (resp !== "{false}") {
         console.log(resp)
         //localStorage.setItem("user", JSON.stringify(resp));
         alert("Enviado con Exito....!!!!")
         window.location.reload()
-
+        setIsLoading(false);
       }
     } catch (error) {
       alert(error)
+      setIsLoading(false);
     }
 
   }
 
   return (
     <>
+      {isLoading ? (
+        <div className="spinner-container">
+          <PropagateLoader color="#010c0a" />
+        </div>
+      ) : null}
       <div className="Form" >
         <h1>Amistad </h1>
         <form id="contact-form" onSubmit={handleSubmit.bind(this)} method="POST" style={{ lineHeight: 4.5 }}>
@@ -85,7 +93,6 @@ const Mail = () => {
     </>
   )
 }
-
 
 Mail.propTypes = {}
 export default Mail
