@@ -8,14 +8,10 @@ const Mio = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        // Realizar una solicitud a tu API para obtener la lista de usuarios
-        // y luego actualizar el estado con los usuarios obtenidos.
         getAllUsersFromAPI();
     }, []);
 
     const getAllUsersFromAPI = () => {
-        // Aquí realizarías la solicitud a tu API y actualizarías el estado
-        // con los usuarios obtenidos. Por ejemplo:
         fetch(API)
             .then(response => response.json())
             .then(data => {

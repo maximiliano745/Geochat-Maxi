@@ -80,8 +80,6 @@ const App = () => {
 
   // UseEffect para iniciar el temporizador al montar el componente
   useEffect(() => {
-    
-    // Tarea única que se ejecutará una sola vez
     tareaUnica();
 
     // Tarea repetida que se ejecutará cada 5 segundos

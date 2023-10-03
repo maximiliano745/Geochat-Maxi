@@ -45,7 +45,7 @@ const Register = () => {
       if (resp) {
         alert(resp)
         if (resp !== '{"Error Email EXISTENTE....!!!"}'){
-          //localStorage.setItem("email", inputValues.email)
+          localStorage.setItem("email", inputValues.email)
           navigate('/Login');
         }
           
