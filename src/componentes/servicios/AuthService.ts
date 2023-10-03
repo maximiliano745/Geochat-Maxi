@@ -1,5 +1,6 @@
 import axios from "axios";
-//const API_URL="http://localhost:10000/"
+
+//const API_URL = "http://localhost:10000/"
 const API_URL = "https://geochat-efn9.onrender.com/"
 
 class AuthService {
@@ -41,10 +42,10 @@ class AuthService {
   }
 
 
-  async register(firstname: string, email: string, password: string) {
+  async register(username: string, email: string, password: string) {
     try {
       const response = await axios.post(API_URL + "api/v2/users/register", {
-        firstname,
+        username,
         email,
         password
       });

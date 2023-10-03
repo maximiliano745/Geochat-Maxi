@@ -59,7 +59,7 @@ const Login = ({ onLogin }: LoginProps) => {
         return resp.data;
       } else {
         setIsLoading(false);
-        alert(resp.data)
+        alert(resp)
         console.log("Error en la solicitud:" + resp);
         return null;
       }

@@ -11,7 +11,7 @@ import { PropagateLoader } from 'react-spinners';
 interface user {
   email: string,
   password: string,
-  firstname: string
+  username: string
 }
 
 
@@ -20,7 +20,7 @@ const Register = () => {
   const [inputValues, setInputValues] = useState<user>({
     email: '',
     password: "",
-    firstname: '',
+    username: '',
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -41,11 +41,14 @@ const Register = () => {
     try {
       e.preventDefault();
       setIsLoading(true);
-      const resp = await AuthService.register(inputValues.firstname, inputValues.email, inputValues.password);
+      const resp = await AuthService.register(inputValues.username, inputValues.email, inputValues.password);
       if (resp) {
         alert(resp)
-        if (resp !== '{"Error Email EXISTENTE....!!!"}')
+        if (resp !== '{"Error Email EXISTENTE....!!!"}'){
+          //localStorage.setItem("email", inputValues.email)
           navigate('/Login');
+        }
+          
       }
     } catch (error) {
       setIsLoading(false);
@@ -119,8 +122,8 @@ const Register = () => {
                 alt="iconUser" />
             </div>
 
-            <input type='firstname' name="firstname" autoComplete='new-name' required
-              value={inputValues.firstname}
+            <input type='username' name="username" autoComplete='new-name' required
+              value={inputValues.username}
               className="form-control border-0  txt-input"
               placeholder="Nombre"
               onChange={e => handleChange(e)}>

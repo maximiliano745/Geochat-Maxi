@@ -9,7 +9,7 @@ import Chat from './componentes/paginas/Chat';
 import AuthProvider from './componentes/Auth/AuthProvider';
 import { useEffect, useState } from 'react';
 import StatusLogin from './componentes/Auth/StatusLogin';
-
+import Mio from './componentes/paginas/Mio';
 
 const App = () => {
 
@@ -68,8 +68,6 @@ const App = () => {
     console.log('No Es Movil');
   }
 
-
-
   // Función para realizar la tarea que se ejecutará una sola vez
   const tareaUnica = () => {
     console.log('Tarea única realizada');
@@ -79,8 +77,6 @@ const App = () => {
   const tareaRepetida = () => {
     console.log('Tarea repetida realizada');
   };
-
-
 
   // UseEffect para iniciar el temporizador al montar el componente
   useEffect(() => {
@@ -94,8 +90,6 @@ const App = () => {
     // Limpiar el temporizador al desmontar el componente
     return () => clearInterval(intervalId);
   }, []);
-
-
 
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -120,6 +114,7 @@ const App = () => {
               <Route path='/mapa' element={<Mapas />} />
               <Route path='/mail' element={<Mail />} />
               <Route path='/chat' element={<Chat />} />
+              <Route path='/mio' element={<Mio />} />
 
             </Routes>
           </Router>
