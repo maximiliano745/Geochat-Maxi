@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import AuthService from "../servicios/AuthService";
 import { PropagateLoader } from 'react-spinners';
+//import SplitPane from 'react-split-pane';
 
 interface mail {
   email: string,
@@ -30,12 +31,18 @@ const Mail = () => {
     try {
       e.preventDefault();
       setIsLoading(true);
-      const resp = await AuthService.mail(inputValues.email, inputValues.name, inputValues.message);
+      const otro= localStorage.getItem("email");
+      const resp = await AuthService.mail(inputValues.email, inputValues.name, inputValues.message, otro);
       if (resp !== "{false}") {
         console.log(resp)
         //localStorage.setItem("user", JSON.stringify(resp));
         alert("Enviado con Exito....!!!!")
-        window.location.reload()
+        //window.location.reload()
+        setInputValues({
+          email: "",
+          name: "",
+          message: "",
+        });
         setIsLoading(false);
       }
     } catch (error) {
@@ -52,7 +59,10 @@ const Mail = () => {
           <PropagateLoader color="#010c0a" />
         </div>
       ) : null}
-      <div className="Form" >
+
+      {/* <SplitPane split="vertical" defaultSize="100%"> */}
+
+        <div className="Form" >
         <h1>Amistad </h1>
         <form id="contact-form" onSubmit={handleSubmit.bind(this)} method="POST" style={{ lineHeight: 4.5 }}>
 
@@ -89,7 +99,10 @@ const Mail = () => {
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
-      </div>
+        </div>
+    
+      {/* </SplitPane> */}
+
     </>
   )
 }

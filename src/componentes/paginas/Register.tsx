@@ -7,13 +7,11 @@ import AuthService from '../servicios/AuthService'
 import { Link, useNavigate } from 'react-router-dom'
 import { PropagateLoader } from 'react-spinners';
 
-
 interface user {
   email: string,
   password: string,
   username: string
 }
-
 
 const Register = () => {
 
