@@ -1,15 +1,16 @@
 
-import { MapContainer, TileLayer, Marker, Popup, FeatureGroup } from 'react-leaflet'
-//import { iconPerson } from './Marker'
+import { MapContainer, TileLayer, Marker, FeatureGroup,Popup } from 'react-leaflet'
+//import { Popup } from 'react-leaflet-popup';
+
 import "leaflet/dist/leaflet.css"
 import ThreeDRotation from '@material-ui/icons/AccessibilityNewOutlined';
 import MarkerClousterGroup from "react-leaflet-cluster";
-//import { Icon } from '@material-ui/core';
 import { Icon, divIcon } from 'leaflet'
 import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import { EditControl } from "react-leaflet-draw"
+//import React, { useEffect, useState } from 'react';
 
 
 //function Mapas(): JSX.Element {
@@ -72,6 +73,9 @@ const Mapas = () => {
     }
   ]
 
+  
+
+
   const custoIcon = new Icon({
     iconUrl: require('../../imagenes/icon.png'),
     iconSize: [30, 30],
@@ -86,7 +90,8 @@ const Mapas = () => {
     })
   }
 
-  //alert(lon)
+  
+  
   return (
     <div>
       <h3 className="title">Mi Mapa</h3>
@@ -103,10 +108,10 @@ const Mapas = () => {
             {markers.map((mm, index) => (
 
               <Marker position={mm.geocde} icon={custoIcon} key={index} color='secondary'>
-                <Popup>
+                <Popup autoOpen>
                   {mm.poPup}
                   <ThreeDRotation color='primary' />
-                  <LocationSearchingIcon />
+                  <LocationSearchingIcon></LocationSearchingIcon>
                 </Popup>
               </Marker>
             ))}
