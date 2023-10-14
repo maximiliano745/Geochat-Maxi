@@ -94,7 +94,7 @@ const Mapas = () => {
   
   return (
     <div>
-      <h3 className="title">Mi Mapa</h3>
+      <h3 className="title">Mis Lugares</h3>
 
       <MapContainer style={{ height: "550px", width: "100%" }} center={[lat, lon]} zoom={6}>
           <TileLayer

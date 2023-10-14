@@ -1,0 +1,20 @@
+.container {
+    display: center;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 0 50px; /* Agrega un espacio a ambos lados para dejar 25% a la izquierda y 25% a la derecha */
+  }
+  
+  .left-container,
+  .middle-container,
+  .right-container {
+    width: 20%;
+    margin-top: 2%;
+    height: 100%; /* Rellena la altura completa */
+    border: 1px solid #000; /* Agrega un borde para visualización */
+    flex-direction: column;
+    display:flexbox;
+  }
+  

@@ -31,6 +31,7 @@ class AuthService {
         password
       });
       console.log("Respuesta del AuthService:", response.data);
+      //alert(response.data)
       return response.data;
     } catch (error) {
       console.error("Error en la solicitud de inicio de sesión:", error);
