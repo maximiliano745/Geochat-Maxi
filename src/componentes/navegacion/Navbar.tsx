@@ -16,56 +16,47 @@ const Navbar = () => {
     }
   }, []); // El segundo argumento [] asegura que este efecto se ejecute solo una vez
 
+  const [elementoSeleccionado, setElementoSeleccionado] = useState('mapa');
 
 
   return (
+    <div>
+      
+
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
         <ul className="navbar-nav mx-auto">
-
-          <li className="nav-item">
-            {/* <Link className="nav-link" to="/mapa"> Mapa</Link> */}
-            <Link to="/mapa">
-
+        
+        <li className="nav-item" style={elementoSeleccionado === 'mapa' ? { backgroundColor: 'green', color: 'white' } : {}}>
+            <Link to="/mapa" onClick={() => setElementoSeleccionado('mapa')}>
               <FaEye size={28} />
-              {/* <IoEyeSharp /> */}
-
             </Link>
           </li>
 
-          <li className="nav-item">
-            {/* <Link className="nav-link" to="/mail"> Mail</Link> */}
-            <Link to="/mail">
-
+          <li className="nav-item" style={elementoSeleccionado === 'mail' ? { backgroundColor: 'green', color: 'white' } : {}}>
+            <Link to="/mail" onClick={() => setElementoSeleccionado('mail')}>
               <FaSignOutAlt size={28} />
-
             </Link>
           </li>
 
 
-          <li className="nav-item">
-            {/* <Link className="nav-link" to="/chat"> Chat</Link> */}
-            <Link to="/chat">
-
+          <li className="nav-item" style={elementoSeleccionado === 'chat' ? { backgroundColor: 'green', color: 'white' } : {}}>
+            <Link to="/chat" onClick={() => setElementoSeleccionado('chat')}>
               <FaUserFriends size={28} />
-
             </Link>
           </li>
 
           {isLoggedIn && (
-            <li className="nav-item">
-              {/* <Link className="nav-link" to="/chat"> Chat</Link> */}
-              <Link to="/mio">
-
+            <li className="nav-item" style={elementoSeleccionado === 'mio' ? { backgroundColor: 'green', color: 'white' } : {}}>
+              <Link to="/mio" onClick={() => setElementoSeleccionado('mio')}>
                 <Gi3DGlasses size={28} />
-
               </Link>
             </li>
           )}
-
         </ul>
       </div>
     </nav>
+    </div>
   )
 }
 Navbar.propTypes = {}

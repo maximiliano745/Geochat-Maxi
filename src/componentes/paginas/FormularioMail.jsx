@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from "react";
 import AuthService from "../servicios/AuthService";
 import { PropagateLoader } from 'react-spinners';
-import Navbar from "../navegacion/Navbar";
 import './Contenedor.css'
 
 function FormularioMail() {
@@ -56,7 +55,6 @@ function FormularioMail() {
         ) : null}
 
         <div className="form" style={{ flex: 1 }}>
-            <Navbar></Navbar>
             <h1 style={{ backgroundColor: 'grey' }}>Amistad </h1>
             <form style={{ marginLeft: "100x"}} id="contact-form"  onSubmit={handleSubmit} method="POST">
                 <div className="mb-2 p-1 d-flex border rounded">
