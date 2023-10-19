@@ -59,9 +59,9 @@ const Mail = () => {
         <SplitPane
 
           split="vertical"
-          defaultSize="98%"  // Ajusta este valor según tus necesidades
-          maxSize={1350}
-          magintop="20%"
+          defaultSize={430}  // Ajusta este valor según tus necesidades
+          maxSize={1335}
+          minSize={430}
         >
           <div className="split-content" style={{ backgroundColor: "gray", display: "flex", height: "100%", justifyContent: "space-between" }}>
 
@@ -113,8 +113,11 @@ const Mail = () => {
           </div>
 
 
-          <div className="split-right" style={{ backgroundColor: "black" }}>
+          <div className="split-right" style={{ backgroundColor: "black", width: '100%', height: '100%' }}>
+            
           </div>
+
+
         </SplitPane>
       </div>
     </>
