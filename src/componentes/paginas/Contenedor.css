@@ -1,20 +1,28 @@
 .container {
-    display: center;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    padding: 0 50px; /* Agrega un espacio a ambos lados para dejar 25% a la izquierda y 25% a la derecha */
-  }
-  
-  .left-container,
-  .middle-container,
-  .right-container {
-    width: 20%;
-    margin-top: 2%;
-    height: 100%; /* Rellena la altura completa */
-    border: 1px solid #000; /* Agrega un borde para visualización */
-    flex-direction: column;
-    display:flexbox;
-  }
-  
+  display: flex;
+}
+
+.left-container,
+.right-container {
+  flex: 1;
+  height: 100vh; /* 100% de la altura del viewport */
+  border: 1px solid #000;
+}
+
+.middle-container {
+  height: 90%;
+  flex: 2; /* 2 veces el ancho de left-container o right-container */
+  display: flex;
+  overflow-x: auto; /* Hace que los elementos sean desplazables si son más amplios que el contenedor */
+}
+
+.middle-content {
+  display: flex;
+}
+
+.elemento {
+  width: 300px; /* Tamaño fijo para cada elemento */
+  height: 200px;
+  background-color: #ccc;
+  margin-right: 10px; /* Espacio entre elementos */
+}

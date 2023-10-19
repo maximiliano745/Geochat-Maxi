@@ -1,6 +1,8 @@
 import Form from './FormularioMail'
 import SplitPane from 'react-split-pane';
 import './Split.css'
+import './Contenedor.css';
+
 
 const Mail = () => {
 
@@ -46,6 +48,9 @@ const Mail = () => {
     }
   ]
 
+  const elementos = ['Elemento 1', 'Elemento 2', 'Elemento 3', 'Elemento 4',
+    'Elemento 5', 'Elemento 6', 'Elemento 7', 'Elemento 8',
+    'Elemento 9', 'Elemento 10', 'Elemento 11', 'Elemento 12'];
 
 
   return (
@@ -60,10 +65,21 @@ const Mail = () => {
         >
           <div className="split-content" style={{ backgroundColor: "gray", display: "flex", height: "100%", justifyContent: "space-between" }}>
 
-            {/* Formulario Gris Izquierda */}
+            {/* Izquierda */}
             <div className="left-container">
               <Form></Form>
             </div>
+
+
+            {/* Centro */}
+            <div className="middle-container">
+              {elementos.map((elemento, index) => (
+                <div className="elemento" key={index}>
+                  {elemento}
+                </div>
+              ))}
+            </div>
+
 
             {/* Derecha */}
             <div className="right-container" style={{ textAlign: "left", justifyContent: "space-between" }}>

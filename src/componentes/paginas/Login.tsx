@@ -128,6 +128,7 @@ const Login = ({ onLogin }: LoginProps) => {
                 <input
                   type="checkbox"
                   className="form-check-input"
+                  defaultChecked
                   id="mycheckbox" />
                 <label className="form-check-label" htmlFor="mycheckbox">
                   Remember
