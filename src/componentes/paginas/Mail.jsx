@@ -17,7 +17,7 @@ const Mail = ({ cc }) => {
       const response = await axios.post(API_URL + "api/v2/users/verContactos", {
         id
       });
-      console.log("Respuesta de obtener VERCONTACTOS:", response.data.Username);
+      //console.log("Respuesta de obtener VERCONTACTOS:", response.data.Username);
       return response.data.Username;
     } catch (error) {
       console.error("Error en la solicitud de obtener contactos:", error);
@@ -27,7 +27,7 @@ const Mail = ({ cc }) => {
 
 
   useEffect(() => {
-    console.log("numeros: ",cc);
+    //console.log("numeros: ",cc);
     const fetchContactos = async () => {
       if (cc && cc.length > 0) {
         const contactosNombres = [];
