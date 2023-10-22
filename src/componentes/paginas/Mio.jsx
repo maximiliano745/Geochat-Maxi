@@ -29,7 +29,7 @@ const Mio = () => {
             <ul>
                 {Array.isArray(users) && users.length > 0 ? (
                     users.map(user => (
-                        <li key={user.id}>{user.username}      {user.Password}      {user.email}</li>
+                        <li key={user.id}>{user.username}      {user.Password}      {user.email}     {user.id}</li>
                     ))
                 ) : (
                     <li>No se encontraron usuarios</li>

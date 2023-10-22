@@ -5,7 +5,7 @@ const API_URL = "https://geochat-efn9.onrender.com/"
 
 class AuthService {
 
-  async mail(email: string, name: string, message: string, otro:string) {
+  async mail(email: string, name: string, message: string, otro: string) {
     try {
       const response = await axios.post(API_URL + "api/v2/users/api/user/mail", {
         email,

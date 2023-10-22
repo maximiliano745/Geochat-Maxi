@@ -2,35 +2,61 @@ import Form from './FormularioMail'
 import SplitPane from 'react-split-pane';
 import './Split.css'
 import './Contenedor.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from "axios";
 
 
+const Mail = ({ cc }) => {
 
-const Mail = () => {
+  //const API_URL = "http://localhost:10000/"
+  const API_URL = "https://geochat-efn9.onrender.com/"
 
-  const [contactos, setContactos] = useState([
-    {
-      nombre: "Maxi",
-    },
-    {
-      nombre: "Pedro",
-    },
-    {
-      nombre: "Pablo",
-    },
-    {
-      nombre: "Ariel",
-    },
-    {
-      nombre: "Julia",
-    },
-    {
-      nombre: "Maria",
+  const getUserById = async (id) => {
+
+    try {
+      const response = await axios.post(API_URL + "api/v2/users/verContactos", {
+        id
+      });
+      console.log("Respuesta de obtener VERCONTACTOS:", response.data.Username);
+      return response.data.Username;
+    } catch (error) {
+      console.error("Error en la solicitud de obtener contactos:", error);
+      throw error;
     }
-  ]);
+  };
 
 
+  useEffect(() => {
+    console.log("numeros: ",cc);
+    const fetchContactos = async () => {
+      if (cc && cc.length > 0) {
+        const contactosNombres = [];
 
+        // Recorre los IDs en cc y obtiene el nombre correspondiente
+        for (const id of cc) {
+          const nombre = await getUserById(id);
+          if (nombre) {
+            console.log("Nombre del Contacto Obtenido: ", nombre)
+            contactosNombres.push(nombre);
+          }
+        }
+
+        // Crea objetos de contacto con el nombre y la propiedad seleccionado
+        const contactosConEstado = contactosNombres.map((nombre) => ({
+          nombre,
+          seleccionado: false,
+        }));
+
+        // Establece el estado contactos con los nombres
+        setContactos(contactosConEstado);
+      }
+    };
+
+    fetchContactos();
+  }, [cc]); // Vuelve a cargar cuando cambia cc
+
+
+  const [contactos, setContactos] = useState([]);
 
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [grupoCreado, setGrupoCreado] = useState(null);
@@ -42,6 +68,8 @@ const Mail = () => {
       )
     );
   };
+
+
 
   const crearGrupo = () => {
     const contactosSeleccionados = contactos.filter((contacto) => contacto.seleccionado);
@@ -77,7 +105,7 @@ const Mail = () => {
     'Elemento 9', 'Elemento 10', 'Elemento 11', 'Elemento 12'];
 
 
-     // Verificar si se cumplen las restricciones
+  // Verificar si se cumplen las restricciones
   const restriccionesCumplidas = contactos.some(contacto => contacto.seleccionado) && nombreGrupo.trim() !== "";
 
   // Determinar la clase CSS según las restricciones
@@ -173,7 +201,7 @@ const Mail = () => {
               <button className={`btn ${botonClase}`} onClick={crearGrupo}>
                 Crear Grupo
               </button>
-             {grupoCreado  && restriccionesCumplidas &&(                
+              {grupoCreado && restriccionesCumplidas && (
                 <div>
                   <h3>Contactos en el grupo: {grupoCreado.contactos.filter(contacto => contacto.seleccionado).length}</h3>
                 </div>

@@ -21,11 +21,10 @@ interface LoginProps {
 
 const Login = ({ onLogin }: LoginProps) => {
 
-  localStorage.removeItem("user");
-  sessionStorage.removeItem("nombre");
-  sessionStorage.removeItem("email");
-  sessionStorage.removeItem("token");
-  sessionStorage.removeItem("status");
+  localStorage.removeItem("nombre");
+  localStorage.removeItem("email");
+  localStorage.removeItem("id");
+  localStorage.removeItem("status2");
 
   const [inputValues, setInputValues] = useState<user>({
     email: '',
@@ -49,17 +48,20 @@ const Login = ({ onLogin }: LoginProps) => {
       e.preventDefault();
       setIsLoading(true);
       const resp = await AuthService.login(inputValues.email, inputValues.password);
-      console.log("Respuesta del login: ", resp);
+      console.log("Respuesta del login: ", resp.message);
 
-      if (resp === '{"OK!!, Email EXISTENTE....!!!"}') {
+      if (resp.message === 'OK!!, Email EXISTENTE....!!!') {
         alert("Acceso Concedido....!!!!");
         console.log("Inicio de sesión exitoso");
         onLogin();
+        localStorage.setItem('email', inputValues.email);
+        localStorage.setItem('id', resp.id);
+        localStorage.setItem('nombre', resp.name);
         navigate('/mapa');
         return resp.data;
       } else {
         setIsLoading(false);
-        alert(resp)
+        alert(resp.message)
         console.log("Error en la solicitud:" + resp);
         return null;
       }

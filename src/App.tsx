@@ -10,10 +10,32 @@ import AuthProvider from './componentes/Auth/AuthProvider';
 import { useEffect, useState } from 'react';
 import StatusLogin from './componentes/Auth/StatusLogin';
 import Mio from './componentes/paginas/Mio';
+import axios from "axios";
 
 const App = () => {
 
+  //const API_URL = "http://localhost:10000/"
+  const API_URL = "https://geochat-efn9.onrender.com/"
+
+
+  const [contactos, setContactos] = useState([]);
+
+  const id = +localStorage.getItem("id");
   let lat: any, lon: any
+
+  
+  const getContactos = async (id: Number) => {
+    try {
+      const response = await axios.post(API_URL + "api/v2/users/contactos", {
+        id
+      });
+      console.log("Respuesta de obtener contactos:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error en la solicitud de obtener contactos:", error);
+      throw error;
+    }
+  };
 
   function success(pos: { coords: any; }) {
     const crd = pos.coords;
@@ -71,11 +93,20 @@ const App = () => {
   // Función para realizar la tarea que se ejecutará una sola vez
   const tareaUnica = () => {
     console.log('Tarea única realizada');
+
   };
 
   // Función para realizar la tarea que se repetirá cada 5 segundos
   const tareaRepetida = () => {
+    getContactos(id)
+      .then((data) => {
+        setContactos(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener contactos:", error);
+      });
     console.log('Tarea repetida realizada');
+
   };
 
   // UseEffect para iniciar el temporizador al montar el componente
@@ -110,7 +141,7 @@ const App = () => {
 
               <Route path='/register' element={<Register />} />
               <Route path='/mapa' element={<Mapas />} />
-              <Route path='/mail' element={<Mail />} />
+              <Route path='/mail' element={<Mail cc={contactos} />} />
               <Route path='/chat' element={<Chat />} />
               <Route path='/mio' element={<Mio />} />
 

@@ -26,6 +26,7 @@ function FormularioMail() {
             e.preventDefault();
             setIsLoading(true);
             const otro = localStorage.getItem("email");
+            //alert(otro);
             const resp = await AuthService.mail(inputValues.email, inputValues.name, inputValues.message, otro);
             if (resp !== "{false}") {
                 console.log(resp);
@@ -56,7 +57,7 @@ function FormularioMail() {
 
         <div className="form" style={{ flex: 1 }}>
             <h1 style={{ backgroundColor: 'grey' }}>Amistad </h1>
-            <form style={{ marginLeft: "100x"}} id="contact-form"  onSubmit={handleSubmit} method="POST">
+            <form style={{ marginLeft: "100x" }} id="contact-form" onSubmit={handleSubmit} method="POST">
                 <div className="mb-2 p-1 d-flex border rounded">
                     <div className="form-group">
                         <input type="text" className="form-control" id="name" value={inputValues.name} onChange={e => handleChange(e)} placeholder="nombre" required />
