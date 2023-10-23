@@ -25,35 +25,40 @@ const Mail = ({ cc }) => {
     }
   };
 
-
   useEffect(() => {
-    //console.log("numeros: ",cc);
     const fetchContactos = async () => {
       if (cc && cc.length > 0) {
+        // Solo verifica si algún contacto está seleccionado después de que se obtengan los nombres
         const contactosNombres = [];
 
-        // Recorre los IDs en cc y obtiene el nombre correspondiente
         for (const id of cc) {
           const nombre = await getUserById(id);
           if (nombre) {
-            console.log("Nombre del Contacto Obtenido: ", nombre)
+            console.log("Nombre del Contacto Obtenido: ", nombre);
             contactosNombres.push(nombre);
           }
         }
 
-        // Crea objetos de contacto con el nombre y la propiedad seleccionado
-        const contactosConEstado = contactosNombres.map((nombre) => ({
-          nombre,
-          seleccionado: false,
-        }));
+        // Verificar si algún contacto está seleccionado
+        const algunContactoSeleccionado = contactosNombres.some((nombre) => {
+          const contactoExistente = contactos.find((c) => c.nombre === nombre);
+          return contactoExistente && contactoExistente.seleccionado;
+        });
 
-        // Establece el estado contactos con los nombres
-        setContactos(contactosConEstado);
+        // Solo realiza la carga si ningún contacto está seleccionado
+        if (!algunContactoSeleccionado) {
+          const contactosConEstado = contactosNombres.map((nombre) => ({
+            nombre,
+            seleccionado: false,
+          }));
+
+          setContactos(contactosConEstado);
+        }
       }
     };
 
     fetchContactos();
-  }, [cc]); // Vuelve a cargar cuando cambia cc
+  }, [cc]); // Vuelve a cargar cuando cambia cc o contactos
 
 
   const [contactos, setContactos] = useState([]);
@@ -68,8 +73,6 @@ const Mail = ({ cc }) => {
       )
     );
   };
-
-
 
   const crearGrupo = () => {
     const contactosSeleccionados = contactos.filter((contacto) => contacto.seleccionado);
@@ -177,9 +180,10 @@ const Mail = ({ cc }) => {
           <div className="split-right" style={{ backgroundColor: "black", width: '100%', height: '100%' }}>
 
             <div>
-              <h2>Selecciona contactos y crea un grupo</h2>
+              <h2 style={{ backgroundColor: 'yellow' }}>Selecciona contactos y crea un grupo</h2>
               <input
                 type="text"
+                // backgroundColor={{#b0ce2e}}
                 placeholder="Crea o Edita un Grupo..."
                 value={nombreGrupo}
                 onChange={(e) => setNombreGrupo(e.target.value)}
@@ -193,7 +197,7 @@ const Mail = ({ cc }) => {
                         checked={contacto.seleccionado}
                         onChange={() => handleSeleccion(contacto.nombre)}
                       />
-                      {contacto.nombre}
+                      <span style={{ color: 'red', backgroundColor: 'blue' }}>{contacto.nombre}</span>
                     </label>
                   </div>
                 ))}
@@ -207,11 +211,7 @@ const Mail = ({ cc }) => {
                 </div>
               )}
             </div>
-
-
           </div>
-
-
         </SplitPane>
       </div>
     </>
