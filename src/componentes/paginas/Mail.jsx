@@ -78,6 +78,7 @@ const Mail = ({ cc }) => {
     const contactosSeleccionados = contactos.filter((contacto) => contacto.seleccionado);
     // Aquí puedes usar contactosSeleccionados para crear el grupo
     // También puedes usar el nombre del grupo de alguna manera
+    alert(nombreGrupo,contactosSeleccionados);
     setGrupoCreado({ nombre: nombreGrupo, contactos: contactosSeleccionados });
   };
 
