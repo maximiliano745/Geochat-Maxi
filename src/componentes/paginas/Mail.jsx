@@ -4,6 +4,7 @@ import './Split.css'
 import './Contenedor.css';
 import { useState, useEffect } from 'react'
 import axios from "axios";
+//import { PropagateLoader } from 'react-spinners';
 
 
 const Mail = ({ cc }) => {
@@ -61,7 +62,7 @@ const Mail = ({ cc }) => {
 
 
   const [contactos, setContactos] = useState([]);
-
+  // const [isLoading, setIsLoading] = useState(false);
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [grupoCreado, setGrupoCreado] = useState(null);
 
@@ -106,10 +107,11 @@ const Mail = ({ cc }) => {
       .then((data) => {
         //console.log("Datos traidos: ", data); // Mensaje de confirmación de la API
 
-         if (data) {
+        if (data) {
           alert(data);
           console.log("Guardado del Grupo exitoso");
           setNombreGrupo("");
+          setContactos([]);
           setGrupoCreado({ nombre: nombreGrupo, contactos: contactosSeleccionadosInfo });
         } else {
           console.error('Error al crear el grupo', data.error);
@@ -164,6 +166,8 @@ const Mail = ({ cc }) => {
           maxSize={1335}
           minSize={430}
         >
+          {/*Pantalla  Gris arriba */}
+
           <div className="split-content" style={{ backgroundColor: "gray", display: "flex", height: "100%", justifyContent: "space-between" }}>
 
             {/* Izquierda */}
@@ -215,14 +219,12 @@ const Mail = ({ cc }) => {
 
           </div>
 
-          {/* Pantalla Negra */}
+          {/* Pantalla Negra abajo*/}
           <div className="split-right" style={{ backgroundColor: "black", width: '100%', height: '100%' }}>
-
             <div>
               <h2 style={{ backgroundColor: 'yellow' }}>Selecciona contactos y crea un grupo</h2>
               <input
                 type="text"
-                // backgroundColor={{#b0ce2e}}
                 placeholder="Crea o Edita un Grupo..."
                 value={nombreGrupo}
                 onChange={(e) => setNombreGrupo(e.target.value)}
@@ -241,12 +243,16 @@ const Mail = ({ cc }) => {
                   </div>
                 ))}
               </div>
-              <button className={`btn ${botonClase}`} onClick={crearGrupo}>
+              <button className={`btn ${botonClase}`} onClick={() => {
+                if (botonClase === "btn-success") {
+                  crearGrupo();
+                }
+              }}>
                 Crear Grupo
               </button>
               {grupoCreado && restriccionesCumplidas && (
                 <div>
-                  <h3>Contactos en el grupo: {grupoCreado.contactos.filter(contacto => contacto).length}</h3>
+                  {/* <h3>Contactos en el grupo: {grupoCreado.contactos.filter(contacto => contacto).length}</h3> */}
                 </div>
               )}
             </div>
