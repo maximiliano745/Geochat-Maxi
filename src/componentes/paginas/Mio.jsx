@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 //const API="http://localhost:10000/api/v1/Maxi"
 const API="https://geochat-efn9.onrender.com/api/v1/Maxi"

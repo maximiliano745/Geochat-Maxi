@@ -24,42 +24,39 @@ const Mail = ({ cc }) => {
       throw error;
     }
   };
-
   useEffect(() => {
     const fetchContactos = async () => {
       if (cc && cc.length > 0) {
-        // Solo verifica si algún contacto está seleccionado después de que se obtengan los nombres
         const contactosNombres = [];
-
+  
         for (const id of cc) {
           const nombre = await getUserById(id);
           if (nombre) {
             console.log("Nombre del Contacto Obtenido: ", nombre);
-            contactosNombres.push(nombre);
+            contactosNombres.push({ id, nombre });
           }
         }
-
-        // Verificar si algún contacto está seleccionado
-        const algunContactoSeleccionado = contactosNombres.some((nombre) => {
+  
+        const algunContactoSeleccionado = contactosNombres.some(({ id, nombre }) => {
           const contactoExistente = contactos.find((c) => c.nombre === nombre);
           return contactoExistente && contactoExistente.seleccionado;
         });
-
-        // Solo realiza la carga si ningún contacto está seleccionado
+  
         if (!algunContactoSeleccionado) {
-          const contactosConEstado = contactosNombres.map((nombre) => ({
+          const contactosConEstado = contactosNombres.map(({ id, nombre }) => ({
             nombre,
             seleccionado: false,
+            id, // Guardamos el ID del contacto
           }));
-
+  
           setContactos(contactosConEstado);
         }
       }
     };
-
+  
     fetchContactos();
-  }, [cc]); // Vuelve a cargar cuando cambia cc o contactos
-
+  }, [cc]);
+  
 
   const [contactos, setContactos] = useState([]);
 
@@ -76,10 +73,41 @@ const Mail = ({ cc }) => {
 
   const crearGrupo = () => {
     const contactosSeleccionados = contactos.filter((contacto) => contacto.seleccionado);
-    // Aquí puedes usar contactosSeleccionados para crear el grupo
-    // También puedes usar el nombre del grupo de alguna manera
-    alert(nombreGrupo,contactosSeleccionados);
-    setGrupoCreado({ nombre: nombreGrupo, contactos: contactosSeleccionados });
+    const contactosSeleccionadosInfo = contactosSeleccionados
+      .filter((contacto) => contacto.seleccionado)
+      .map((contacto) => ({
+        id: contacto.id,
+        nombre: contacto.nombre,
+      }));
+
+    const idd = +localStorage.getItem("id");
+    // Los datos a enviar a la API
+    const data = {
+      iddueño: idd,
+      nombre: nombreGrupo,
+      contactos: contactosSeleccionadosInfo,
+    };
+    console.log("datos: ", data);
+    console.log("id Dueño: ", idd);
+    console.log("nombre grupo: ", nombreGrupo);
+    console.log("Integrantes: ", contactosSeleccionadosInfo);
+
+    // Realiza la solicitud POST a la API para crear el grupo
+    fetch(API_URL + "api/v2/users/crearGrupos", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data); // Mensaje de confirmación de la API
+        setGrupoCreado({ nombre: nombreGrupo, contactos: contactosSeleccionadosInfo });
+      })
+      .catch((error) => {
+        console.error('Error al crear el grupo', error);
+      });
   };
 
 
@@ -208,7 +236,7 @@ const Mail = ({ cc }) => {
               </button>
               {grupoCreado && restriccionesCumplidas && (
                 <div>
-                  <h3>Contactos en el grupo: {grupoCreado.contactos.filter(contacto => contacto.seleccionado).length}</h3>
+                  <h3>Contactos en el grupo: {grupoCreado.contactos.filter(contacto => contacto).length}</h3>
                 </div>
               )}
             </div>
