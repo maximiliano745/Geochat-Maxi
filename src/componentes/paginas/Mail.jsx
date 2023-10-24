@@ -11,8 +11,8 @@ const Mail = ({ cc }) => {
   //const API_URL = "http://localhost:10000/"
   const API_URL = "https://geochat-efn9.onrender.com/"
 
-  const getUserById = async (id) => {
 
+  const getUserById = async (id) => {
     try {
       const response = await axios.post(API_URL + "api/v2/users/verContactos", {
         id
@@ -24,11 +24,13 @@ const Mail = ({ cc }) => {
       throw error;
     }
   };
+
+
   useEffect(() => {
     const fetchContactos = async () => {
       if (cc && cc.length > 0) {
         const contactosNombres = [];
-  
+
         for (const id of cc) {
           const nombre = await getUserById(id);
           if (nombre) {
@@ -36,27 +38,27 @@ const Mail = ({ cc }) => {
             contactosNombres.push({ id, nombre });
           }
         }
-  
+
         const algunContactoSeleccionado = contactosNombres.some(({ id, nombre }) => {
           const contactoExistente = contactos.find((c) => c.nombre === nombre);
           return contactoExistente && contactoExistente.seleccionado;
         });
-  
+
         if (!algunContactoSeleccionado) {
           const contactosConEstado = contactosNombres.map(({ id, nombre }) => ({
             nombre,
             seleccionado: false,
             id, // Guardamos el ID del contacto
           }));
-  
+
           setContactos(contactosConEstado);
         }
       }
     };
-  
+
     fetchContactos();
   }, [cc]);
-  
+
 
   const [contactos, setContactos] = useState([]);
 
@@ -102,8 +104,16 @@ const Mail = ({ cc }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // Mensaje de confirmación de la API
-        setGrupoCreado({ nombre: nombreGrupo, contactos: contactosSeleccionadosInfo });
+        //console.log("Datos traidos: ", data); // Mensaje de confirmación de la API
+
+         if (data) {
+          alert(data);
+          console.log("Guardado del Grupo exitoso");
+          setNombreGrupo("");
+          setGrupoCreado({ nombre: nombreGrupo, contactos: contactosSeleccionadosInfo });
+        } else {
+          console.error('Error al crear el grupo', data.error);
+        }
       })
       .catch((error) => {
         console.error('Error al crear el grupo', error);

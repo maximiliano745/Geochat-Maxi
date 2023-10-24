@@ -24,7 +24,7 @@ const App = () => {
   let lat: any, lon: any
 
   
-  const getContactos = async (id: Number) => {
+  const getContactos = async (id: number) => {
     try {
       const response = await axios.post(API_URL + "api/v2/users/contactos", {
         id
