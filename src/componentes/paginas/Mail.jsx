@@ -18,7 +18,7 @@ const Mail = ({ cc, gg }) => {
       const response = await axios.post(API_URL + "api/v2/users/verContactos", {
         id
       });
-      //console.log("Respuesta de obtener VERCONTACTOS:", response.data.Username);
+      console.log("Respuesta de obtener VERCONTACTOS:", response.data.Username);
       return response.data.Username;
     } catch (error) {
       console.error("Error en la solicitud de obtener contactos:", error);
@@ -108,7 +108,11 @@ const Mail = ({ cc, gg }) => {
         //console.log("Datos traidos: ", data); // Mensaje de confirmación de la API
 
         if (data) {
-          alert(data);
+          if (data === 'Grupo creado exitosamente')
+            alert(data);
+          else {
+            alert(data.message);
+          }
           console.log("Guardado del Grupo exitoso");
           setNombreGrupo("");
           setContactos([]);
@@ -174,7 +178,7 @@ const Mail = ({ cc, gg }) => {
                 <div className="data-visualization" style={{ display: "flex", marginRight: 10, flexDirection: "column", alignItems: "center" }}>
 
                   <h2 style={{ backgroundColor: 'wait' }}>Contactos </h2>
-                  {contactos.map((item, index) => (
+                  {contactos && contactos.map((item, index) => (
                     <div key={index}>
                       {item.nombre}
                     </div>
@@ -186,7 +190,7 @@ const Mail = ({ cc, gg }) => {
                 <div className="data-visualization" style={{ display: "flex", marginLeft: 10, marginBotoom: "100%", flexDirection: "column", alignItems: "center" }}>
 
                   <h2 style={{ backgroundColor: 'wait' }}>Grupos </h2>
-                  {gg.map((item, index) => (
+                  {gg && gg.map((item, index) => (
                     <div key={index}>
                       {item.nombre}
                     </div>
