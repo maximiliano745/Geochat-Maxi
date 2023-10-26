@@ -9,8 +9,8 @@ import axios from "axios";
 
 const Mail = ({ cc, gg }) => {
 
-  const API_URL = "http://localhost:10000/"
-  //const API_URL = "https://geochat-efn9.onrender.com/"
+  //const API_URL = "http://localhost:10000/"
+  const API_URL = "https://geochat-efn9.onrender.com/"
 
 
   const getUserById = async (id) => {
