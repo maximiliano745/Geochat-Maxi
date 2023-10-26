@@ -14,13 +14,23 @@ import axios from "axios";
 
 const App = () => {
 
-  //const API_URL = "http://localhost:10000/"
-  const API_URL = "https://geochat-efn9.onrender.com/"
+  const API_URL = "http://localhost:10000/"
+  //const API_URL = "https://geochat-efn9.onrender.com/"
 
 
   const [contactos, setContactos] = useState([]);
+  const [grupos, setGrupos] = useState([]);
 
-  const id = +localStorage.getItem("id");
+  function obtenerIdDelLocalStorage() {
+    let id = +localStorage.getItem("id");
+    while (id === undefined) {
+      // Intenta cargar el valor nuevamente
+      id = +localStorage.getItem("id");
+    }
+    return id;
+  }
+
+  const id = obtenerIdDelLocalStorage();
   let lat: any, lon: any
 
   
@@ -36,6 +46,21 @@ const App = () => {
       throw error;
     }
   };
+
+  const getGrupos = async (id : number) => {
+    try {
+      const response = await axios.post(API_URL + "api/v2/users/vergrupos", {
+        id
+      });
+      console.log("Respuesta de obtener grupos:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error en la solicitud de obtener contactos:", error);
+      throw error;
+    }
+
+
+  }
 
   function success(pos: { coords: any; }) {
     const crd = pos.coords;
@@ -98,6 +123,7 @@ const App = () => {
 
   // Función para realizar la tarea que se repetirá cada 5 segundos
   const tareaRepetida = () => {
+    console.log('Tarea repetida realizada');
     getContactos(id)
       .then((data) => {
         setContactos(data);
@@ -105,10 +131,18 @@ const App = () => {
       .catch((error) => {
         console.error("Error al obtener contactos:", error);
       });
-    console.log('Tarea repetida realizada');
+
+      getGrupos(id)
+      .then((data) => {
+        setGrupos(data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener contactos:", error);
+      });
 
   };
 
+  
   // UseEffect para iniciar el temporizador al montar el componente
   useEffect(() => {
     tareaUnica();
@@ -141,7 +175,7 @@ const App = () => {
 
               <Route path='/register' element={<Register />} />
               <Route path='/mapa' element={<Mapas />} />
-              <Route path='/mail' element={<Mail cc={contactos} />} />
+              <Route path='/mail' element={<Mail cc={contactos} gg={grupos} />} />
               <Route path='/chat' element={<Chat />} />
               <Route path='/mio' element={<Mio />} />
 

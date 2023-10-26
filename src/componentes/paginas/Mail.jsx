@@ -7,10 +7,10 @@ import axios from "axios";
 //import { PropagateLoader } from 'react-spinners';
 
 
-const Mail = ({ cc }) => {
+const Mail = ({ cc, gg }) => {
 
-  //const API_URL = "http://localhost:10000/"
-  const API_URL = "https://geochat-efn9.onrender.com/"
+  const API_URL = "http://localhost:10000/"
+  //const API_URL = "https://geochat-efn9.onrender.com/"
 
 
   const getUserById = async (id) => {
@@ -123,27 +123,6 @@ const Mail = ({ cc }) => {
   };
 
 
-  const grupos = [
-    {
-      nombre: "Amigos",
-    },
-    {
-      nombre: "Trabajo",
-    },
-    {
-      nombre: "Facultad",
-    },
-    {
-      nombre: "Negocios",
-    },
-    {
-      nombre: "Chicas",
-    },
-    {
-      nombre: "Familia"
-    }
-  ]
-
   const elementos = ['Elemento 1', 'Elemento 2', 'Elemento 3', 'Elemento 4',
     'Elemento 5', 'Elemento 6', 'Elemento 7', 'Elemento 8',
     'Elemento 9', 'Elemento 10', 'Elemento 11', 'Elemento 12'];
@@ -204,9 +183,10 @@ const Mail = ({ cc }) => {
                 </div>
 
                 {/* Grupos */}
-                <div className="data-visualization" style={{ display: "flex", marginLeft: 10, marginBotoom: "100%", flexDirection: "column", alignItems: "left" }}>
+                <div className="data-visualization" style={{ display: "flex", marginLeft: 10, marginBotoom: "100%", flexDirection: "column", alignItems: "center" }}>
+
                   <h2 style={{ backgroundColor: 'wait' }}>Grupos </h2>
-                  {grupos.map((item, index) => (
+                  {gg.map((item, index) => (
                     <div key={index}>
                       {item.nombre}
                     </div>

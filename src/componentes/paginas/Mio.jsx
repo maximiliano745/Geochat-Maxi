@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 const API="https://geochat-efn9.onrender.com/api/v1/Maxi"
 
 const Mio = () => {
+    
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
