@@ -28,6 +28,7 @@ const Mail = ({ cc, gg }) => {
 
 
   useEffect(() => {
+
     const fetchContactos = async () => {
       if (cc && cc.length > 0) {
         const contactosNombres = [];
@@ -58,7 +59,7 @@ const Mail = ({ cc, gg }) => {
     };
 
     fetchContactos();
-  }, [cc]);
+  }, [cc,gg]);
 
 
   const [contactos, setContactos] = useState([]);
