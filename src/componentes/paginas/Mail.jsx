@@ -28,7 +28,7 @@ const Mail = ({ cc, gg }) => {
 
 
   useEffect(() => {
-
+    
     const fetchContactos = async () => {
       if (cc && cc.length > 0) {
         const contactosNombres = [];
