@@ -6,6 +6,12 @@ let socket = new WebSocket("wss://" + API_URL + "/api/v2/users/wss");
 let connect = (cb) => {
     console.log("Conectando....");
 
+    if (!navigator.onLine) {
+        // Si no hay conexión a Internet, muestra un alert y no intentes conectar
+        alert("------------> No hay conexión a Internet. Intente de nuevo---");
+        return;
+    }
+
     socket.onopen = () => {
         console.log("--------------------> Coneccion Habierta...!!!");
     }
@@ -26,6 +32,13 @@ let connect = (cb) => {
 
 let sendMsg = (msg) => {
     console.log("--------------------> Mandando mensaje: ", msg);
+    if (navigator.onLine) {
+        // Solo envía el mensaje si hay conexión a Internet
+        socket.send(msg);
+    } else {
+        alert("------------> No hay conexión a Internet. Intente de nuevo---");
+    }
+
     socket.send(msg);
 }
 export { connect, sendMsg };
