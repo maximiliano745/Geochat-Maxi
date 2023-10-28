@@ -12,6 +12,25 @@ const Mail = ({ cc, gg }) => {
   //const API_URL = "http://localhost:10000/"
   const API_URL = "https://geochat-efn9.onrender.com/"
 
+  const videoElement = document.getElementById('videoElement');
+  const audioElement = document.getElementById('audioElement');
+
+  navigator.mediaDevices
+    .getUserMedia({ video: true, audio: true })
+    .then(function (stream) {
+      // Asignar el flujo de medios a los elementos HTML
+      videoElement.srcObject = stream;
+      audioElement.srcObject = stream;
+
+      // Iniciar la reproducción de video
+      videoElement.play();
+      // Puedes controlar la reproducción de audio según tus necesidades
+
+      console.log('Acceso a la cámara y al micrófono exitoso.');
+    })
+    .catch(function (error) {
+      console.error('Error al acceder a la cámara y al micrófono:', error);
+    });
 
   const getUserById = async (id) => {
     try {
@@ -28,7 +47,7 @@ const Mail = ({ cc, gg }) => {
 
 
   useEffect(() => {
-    
+
     const fetchContactos = async () => {
       if (cc && cc.length > 0) {
         const contactosNombres = [];
@@ -59,7 +78,7 @@ const Mail = ({ cc, gg }) => {
     };
 
     fetchContactos();
-  }, [cc,gg]);
+  }, [cc, gg]);
 
 
   const [contactos, setContactos] = useState([]);
@@ -129,8 +148,7 @@ const Mail = ({ cc, gg }) => {
 
 
   const elementos = ['Elemento 1', 'Elemento 2', 'Elemento 3', 'Elemento 4',
-    'Elemento 5', 'Elemento 6', 'Elemento 7', 'Elemento 8',
-    'Elemento 9', 'Elemento 10', 'Elemento 11', 'Elemento 12'];
+    'Elemento 5', 'Elemento 6', 'Elemento 7', 'Elemento 8'];
 
 
   // Verificar si se cumplen las restricciones
@@ -161,13 +179,34 @@ const Mail = ({ cc, gg }) => {
 
 
             {/* Centro */}
-            <div className="middle-container">
-              {elementos.map((elemento, index) => (
-                <div className="elemento" key={index}>
-                  {elemento}
-                </div>
-              ))}
+            <div className="middle-container" style={{ height: '650px' }}>
+              <div className="elemento">
+                <video id="videoElement" autoPlay playsInline muted></video>
+                <audio id="audioElement" autoPlay></audio>
+              </div>
+              <div className="middle-container" style={{ marginLeft: '-310px' }}>
+                {elementos.map((elemento, index) => (
+                  <div className="elemento" key={index} style={{ marginTop: '480px', height: '90px' }}>
+                    {elemento}
+                  </div>
+                ))}
+              </div>
             </div>
+
+            {/* Centro */}
+            {/* <div className="middle-container" style={{ height: '650px' }}>
+              <div className="elemento" style={{ marginBottom: '20px' }}>
+                <video id="videoElement" autoPlay playsInline muted style={{ width: '100%', height: 'auto' }}></video>
+                <audio id="audioElement" autoPlay style={{ display: 'none' }}></audio>
+              </div>
+              <div className="middle-container">
+                {elementos.map((elemento, index) => (
+                  <div className="elemento" key={index} style={{ height: '90px' }}>
+                    {elemento}
+                  </div>
+                ))}
+              </div>
+            </div> */}
 
 
             {/* Derecha */}
