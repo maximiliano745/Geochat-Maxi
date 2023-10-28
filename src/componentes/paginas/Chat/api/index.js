@@ -1,5 +1,5 @@
 const API_URL = "geochat-efn9.onrender.com"
-//let socket = new WebSocket("ws://localhost:10000/api/v2/users/ws");
+//var socket = new WebSocket("ws://localhost:10000/api/v2/users/ws");
 let socket = new WebSocket("wss://" + API_URL + "/api/v2/users/wss");
 
 
@@ -39,6 +39,5 @@ let sendMsg = (msg) => {
         alert("------------> No hay conexión a Internet. Intente de nuevo---");
     }
 
-    socket.send(msg);
 }
 export { connect, sendMsg };

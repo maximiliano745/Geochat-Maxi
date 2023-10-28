@@ -22,40 +22,40 @@ const Navbar = () => {
   return (
     <div>
       
+      {/* <nav className="navbar navbar-expand-lg bg-light"> */}
+      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: 'rgba(37, 32, 32, 0.7)' }}>
+        <div className="container-fluid">
+          <ul className="navbar-nav mx-auto">
 
-    <nav className="navbar navbar-expand-lg bg-light">
-      <div className="container-fluid">
-        <ul className="navbar-nav mx-auto">
-        
-        <li className="nav-item" style={elementoSeleccionado === 'mapa' ? { backgroundColor: 'green', color: 'white' } : {}}>
-            <Link to="/mapa" onClick={() => setElementoSeleccionado('mapa')}>
-              <FaEye size={28} />
-            </Link>
-          </li>
-
-          <li className="nav-item" style={elementoSeleccionado === 'mail' ? { backgroundColor: 'green', color: 'white' } : {}}>
-            <Link to="/mail" onClick={() => setElementoSeleccionado('mail')}>
-              <FaSignOutAlt size={28} />
-            </Link>
-          </li>
-
-
-          <li className="nav-item" style={elementoSeleccionado === 'chat' ? { backgroundColor: 'green', color: 'white' } : {}}>
-            <Link to="/chat" onClick={() => setElementoSeleccionado('chat')}>
-              <FaUserFriends size={28} />
-            </Link>
-          </li>
-
-          {isLoggedIn && (
-            <li className="nav-item" style={elementoSeleccionado === 'mio' ? { backgroundColor: 'green', color: 'white' } : {}}>
-              <Link to="/mio" onClick={() => setElementoSeleccionado('mio')}>
-                <Gi3DGlasses size={28} />
+            <li className="nav-item" style={elementoSeleccionado === 'mapa' ? { backgroundColor: 'green', color: 'white' } : {}}>
+              <Link to="/mapa" onClick={() => setElementoSeleccionado('mapa')}>
+                <FaEye size={28} />
               </Link>
             </li>
-          )}
-        </ul>
-      </div>
-    </nav>
+
+            <li className="nav-item" style={elementoSeleccionado === 'mail' ? { backgroundColor: 'green', color: 'white' } : {}}>
+              <Link to="/mail" onClick={() => setElementoSeleccionado('mail')}>
+                <FaSignOutAlt size={28} />
+              </Link>
+            </li>
+
+
+            <li className="nav-item" style={elementoSeleccionado === 'chat' ? { backgroundColor: 'green', color: 'white' } : {}}>
+              <Link to="/chat" onClick={() => setElementoSeleccionado('chat')}>
+                <FaUserFriends size={28} />
+              </Link>
+            </li>
+
+            {isLoggedIn && (
+              <li className="nav-item" style={elementoSeleccionado === 'mio' ? { backgroundColor: 'green', color: 'white' } : {}}>
+                <Link to="/mio" onClick={() => setElementoSeleccionado('mio')}>
+                  <Gi3DGlasses size={28} />
+                </Link>
+              </li>
+            )}
+          </ul>
+        </div>
+      </nav>
     </div>
   )
 }
