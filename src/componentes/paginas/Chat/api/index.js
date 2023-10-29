@@ -17,8 +17,12 @@ let connect = (cb) => {
     }
 
     socket.onmessage = (msg) => {
-        console.log("--------------------> Mensaje desde WebSocket: ", msg);
-        cb(msg);
+        if (socket && socket.readyState === WebSocket.OPEN) {
+            console.log("--------------------> Mensaje desde WebSocket: ", msg);
+            cb(msg);
+        }else{
+            alert("Tratando de Habililitar Coneccion...., Intente de nuevo.")
+        }
     }
 
     socket.onclose = (event) => {
@@ -34,7 +38,8 @@ let sendMsg = (msg) => {
     console.log("--------------------> Mandando mensaje: ", msg);
     if (socket && socket.readyState === WebSocket.OPEN) {
         socket.send(msg);
+    }else{
+        connect();
     }
-
 }
 export { connect, sendMsg };
