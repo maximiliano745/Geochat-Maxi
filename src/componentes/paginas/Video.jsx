@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 const Video = () => {
     const videoElementRef = useRef(null);
     const audioElementRef = useRef(null);
-    const [videoUrl, setVideoUrl] = useState(null); // Declarar la variable videoUrl
-    const [audioUrl, setAudioUrl] = useState(null);
+    const [videoStream, setVideoStream] = useState(null);
+    const [audioStream, setAudioStream] = useState(null);
 
     useEffect(() => {
         navigator.mediaDevices
@@ -14,17 +14,9 @@ const Video = () => {
                 videoElementRef.current.srcObject = stream;
                 audioElementRef.current.srcObject = stream;
 
-                // Capturar las URLs de video y audio a partir del stream
-                const videoTracks = stream.getVideoTracks();
-                const audioTracks = stream.getAudioTracks();
-
-                if (videoTracks.length > 0) {
-                    setVideoUrl(window.URL.createObjectURL(videoTracks[0]));
-                }
-
-                if (audioTracks.length > 0) {
-                    setAudioUrl(window.URL.createObjectURL(audioTracks[0]));
-                }
+                // Establecer los flujos de video y audio
+                setVideoStream(stream);
+                setAudioStream(stream);
 
                 // Iniciar la reproducción de video
                 videoElementRef.current.play();
@@ -37,8 +29,8 @@ const Video = () => {
             });
     }, []);
 
-    console.log("____________>", videoUrl);
-    console.log("____________>", audioUrl);
+    console.log("Video Stream:", videoStream);
+    console.log("Audio Stream:", audioStream);
 
     return (
         <div className="middle-container" style={{ height: '650px' }}>

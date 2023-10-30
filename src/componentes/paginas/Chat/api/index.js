@@ -35,10 +35,11 @@ let connect = (cb) => {
 };
 
 let sendMsg = (msg) => {
-    console.log("--------------------> Mandando mensaje: ", msg);
     if (socket && socket.readyState === WebSocket.OPEN) {
+        console.log("--------------------> Mandando mensaje: ", msg);
         socket.send(msg);
     }else{
+        console.log("--------------------> Error Reconectando, Buelva a intentar.....");
         connect();
     }
 }
