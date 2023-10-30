@@ -5,32 +5,14 @@ import './Contenedor.css';
 import { useState, useEffect } from 'react'
 import axios from "axios";
 //import { PropagateLoader } from 'react-spinners';
-
+import Video from './Video';
 
 const Mail = ({ cc, gg }) => {
 
   //const API_URL = "http://localhost:10000/"
   const API_URL = "https://geochat-efn9.onrender.com/"
 
-  const videoElement = document.getElementById('videoElement');
-  const audioElement = document.getElementById('audioElement');
 
-  navigator.mediaDevices
-    .getUserMedia({ video: true, audio: true })
-    .then(function (stream) {
-      // Asignar el flujo de medios a los elementos HTML
-      videoElement.srcObject = stream;
-      audioElement.srcObject = stream;
-
-      // Iniciar la reproducción de video
-      videoElement.play();
-      // Puedes controlar la reproducción de audio según tus necesidades
-
-      console.log('Acceso a la cámara y al micrófono exitoso.');
-    })
-    .catch(function (error) {
-      console.error('Error al acceder a la cámara y al micrófono:', error);
-    });
 
   const getUserById = async (id) => {
     try {
@@ -180,11 +162,9 @@ const Mail = ({ cc, gg }) => {
 
             {/* Centro */}
             <div className="middle-container" style={{ height: '650px' }}>
-              <div className="elemento">
-                <video id="videoElement" autoPlay playsInline muted></video>
-                <audio id="audioElement" autoPlay></audio>
-              </div>
-              <div className="middle-container" style={{ marginLeft: '-310px' }}>
+              <Video></Video>
+
+              <div className="middle-container" style={{ marginLeft: '-660px' }}>
                 {elementos.map((elemento, index) => (
                   <div className="elemento" key={index} style={{ marginTop: '480px', height: '90px' }}>
                     {elemento}
@@ -192,21 +172,6 @@ const Mail = ({ cc, gg }) => {
                 ))}
               </div>
             </div>
-
-            {/* Centro */}
-            {/* <div className="middle-container" style={{ height: '650px' }}>
-              <div className="elemento" style={{ marginBottom: '20px' }}>
-                <video id="videoElement" autoPlay playsInline muted style={{ width: '100%', height: 'auto' }}></video>
-                <audio id="audioElement" autoPlay style={{ display: 'none' }}></audio>
-              </div>
-              <div className="middle-container">
-                {elementos.map((elemento, index) => (
-                  <div className="elemento" key={index} style={{ height: '90px' }}>
-                    {elemento}
-                  </div>
-                ))}
-              </div>
-            </div> */}
 
 
             {/* Derecha */}
