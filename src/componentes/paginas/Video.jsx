@@ -23,14 +23,15 @@ const Video = () => {
                 // Puedes controlar la reproducción de audio según tus necesidades
 
                 console.log('Acceso a la cámara y al micrófono exitoso.');
+                console.log("Video Stream:", videoStream,"   ", videoElementRef);
+                console.log("Audio Stream:", audioStream,"   ", audioElementRef);
+            
             })
             .catch(function (error) {
                 console.error('Error al acceder a la cámara y al micrófono:', error);
             });
     }, []);
 
-    console.log("Video Stream:", videoStream);
-    console.log("Audio Stream:", audioStream);
 
     return (
         <div className="middle-container" style={{ height: '650px' }}>
