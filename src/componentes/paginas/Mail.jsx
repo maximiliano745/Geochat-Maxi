@@ -169,12 +169,13 @@ const Mail = ({ cc, gg }) => {
 
           split="vertical"
           defaultSize={1335}  // Ajusta este valor según tus necesidades
-          maxSize={1335}
-          minSize={430}
+          maxSize={1337}
+          minSize={830}
         >
           {/*Pantalla  Gris arriba */}
 
-          <div className="split-content" style={{ backgroundColor: "gray", display: "flex", height: "100%", justifyContent: "space-between" }}>
+          <div className="split-content" style={{ backgroundColor: "gray", display: "flex", height: "90%", 
+          justifyContent: "space-between" }}>
 
             {/* Izquierda */}
             <div className="left-container">
@@ -183,7 +184,7 @@ const Mail = ({ cc, gg }) => {
 
 
             {/* Centro */}
-            <div className="middle-container" style={{ width: '300px', height: '650px' }}>
+            <div className="middle-container">
              <Video></Video>
               <div className="middle-container2">
               {miembrosGrupo && miembrosGrupo.map((usuario, index) => (

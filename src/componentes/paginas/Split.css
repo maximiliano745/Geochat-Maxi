@@ -16,7 +16,6 @@
   }
    
   .Resizer.horizontal {
-    height: 11px;
     margin: -5px 0;
     border-top: 5px solid rgba(255, 255, 255, 0);
     border-bottom: 5px solid rgba(255, 255, 255, 0);
@@ -39,7 +38,7 @@
    
   .Resizer.vertical:hover {
     border-left: 5px solid rgba(0, 0, 0, 0.5);
-    border-right: 5px solid rgba(0, 0, 0, 0.5);
+    border-right: 5px solid rgba(143, 138, 138, 0.5);
   }
   .Resizer.disabled {
     cursor: not-allowed;
@@ -50,14 +49,8 @@
 /* CSS */
 .split-left {
   width: 100%; /* Ajusta el ancho izquierdo según tus necesidades */
-  height: 100%;
-  /* float: left; */
 }
 
 .split-right {
   width: 100%; /* Ajusta el ancho derecho según tus necesidades */
-  height: 100%;
-  /* float: right; */
-  /* Espacio entre el formulario y los datos */
-  /* padding: 20px;  */
 }  

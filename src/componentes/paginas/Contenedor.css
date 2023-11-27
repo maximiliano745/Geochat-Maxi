@@ -5,35 +5,33 @@
 .left-container,
 .right-container {
   flex: 1;
-  height: 100vh; /* 100% de la altura del viewport */
+  height: 90vh; /* 100% de la altura del viewport */
   border: 1px solid #000;
 }
 
 .middle-container {
-  height: 90%;
   flex: 2; /* 2 veces el ancho de left-container o right-container */
   /* display: flex; */
-  overflow-x: auto; /* Hace que los elementos sean desplazables si son más amplios que el contenedor */
+  /* overflow-x: auto;  */
 }
-
 
 .middle-container2 {
+  white-space: nowrap;
   display: flex;
   flex-wrap: wrap;
-  gap: 5px; /* Espacio entre los nombres */
+  gap: 3px; /* Espacio entre los nombres */
+  overflow-x: auto;
   margin-top: -165px;
-
+  
 }
 
-.middle-content {
-  display: flex;
-}
+
 
 .elemento {
   padding: 5px; /* Espaciado interno de los nombres */
   border: 1px solid black; /* Borde para los nombres */
-  width: 200px; /* Tamaño fijo para cada elemento */
-  height: 70px;
+  width: auto;
+  height: 50px;
   background-color: #ccc;
   margin-right: 10px; /* Espacio entre elementos */
 }
