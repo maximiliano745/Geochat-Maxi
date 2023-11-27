@@ -183,11 +183,9 @@ const Mail = ({ cc, gg }) => {
 
 
             {/* Centro */}
-            <div className="middle-container" style={{ width: '200px', height: '650px', border: '2px solid black' }}>
+            <div className="middle-container" style={{ width: '300px', height: '650px' }}>
              <Video></Video>
-              <div className="middle-container" style={{ marginLeft: '-650px' , marginTop: '490px', 
-              height: '70px',
-               display: 'flex', flexWrap:'wrap'}}>
+              <div className="middle-container2">
               {miembrosGrupo && miembrosGrupo.map((usuario, index) => (
                 <div className="elemento" key={index}>
                   {usuario.username}
