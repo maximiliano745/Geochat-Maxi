@@ -12,8 +12,6 @@ const Mail = ({ cc, gg }) => {
   //const API_URL = "http://localhost:10000/"
   const API_URL = "https://geochat-efn9.onrender.com/"
 
-
-
   const getUserById = async (id) => {
     try {
       const response = await axios.post(API_URL + "api/v2/users/verContactos", {
@@ -28,7 +26,18 @@ const Mail = ({ cc, gg }) => {
   };
 
 
+  const [contactos, setContactos] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
+  const [nombreGrupo, setNombreGrupo] = useState('');
+  const [grupoCreado, setGrupoCreado] = useState(null);
+  //const [grupos, setGrupos] = useState([]);
+  const [grupoSeleccionado, setGrupoSeleccionado] = useState(null);
+  const [miembrosGrupo, setMiembrosGrupo] = useState([]);
+
+
   useEffect(() => {
+
+      //alert('grupoSeleccionado actualizado: ' + grupoSeleccionado);
 
     const fetchContactos = async () => {
       if (cc && cc.length > 0) {
@@ -58,15 +67,16 @@ const Mail = ({ cc, gg }) => {
         }
       }
     };
-
     fetchContactos();
-  }, [cc, gg]);
+
+    // Aquí obtienes los miembros del grupo seleccionado al inicio
+    if (grupoSeleccionado) {
+      handleGroupSelection(+grupoSeleccionado);
+    }
 
 
-  const [contactos, setContactos] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  const [nombreGrupo, setNombreGrupo] = useState('');
-  const [grupoCreado, setGrupoCreado] = useState(null);
+  }, [cc, gg, grupoSeleccionado]);
+
 
   const handleSeleccion = (id) => {
     setContactos((prevContactos) =>
@@ -76,6 +86,21 @@ const Mail = ({ cc, gg }) => {
     );
   };
 
+
+  const handleGroupSelection = async (id) => {
+    try {
+      const response = await axios.post(API_URL + "api/v2/users/traerMiembrosGrupo", { id });
+  
+      if (response.data) {
+        setGrupoSeleccionado(id);
+        setMiembrosGrupo(response.data);
+      }
+    } catch (error) {
+      console.error('Error al obtener miembros del grupo traerMiembrosGrupo:', error);
+    }
+  };
+
+  
   const crearGrupo = () => {
     const contactosSeleccionados = contactos.filter((contacto) => contacto.seleccionado);
     const contactosSeleccionadosInfo = contactosSeleccionados
@@ -128,16 +153,13 @@ const Mail = ({ cc, gg }) => {
       });
   };
 
-
-  const elementos = ['Elemento 1', 'Elemento 2', 'Elemento 3', 'Elemento 4',
-    'Elemento 5', 'Elemento 6', 'Elemento 7', 'Elemento 8'];
-
-
   // Verificar si se cumplen las restricciones
   const restriccionesCumplidas = contactos.some(contacto => contacto.seleccionado) && nombreGrupo.trim() !== "";
 
   // Determinar la clase CSS según las restricciones
   const botonClase = restriccionesCumplidas ? "btn-success" : "btn-danger";
+
+  console.log("***************---> Miembros del grupo:", miembrosGrupo);
 
 
   return (
@@ -161,27 +183,26 @@ const Mail = ({ cc, gg }) => {
 
 
             {/* Centro */}
-            <div className="middle-container" style={{ height: '650px' }}>
-              <Video></Video>
-
-              <div className="middle-container" style={{ marginLeft: '-660px' }}>
-                {elementos.map((elemento, index) => (
-                  <div className="elemento" key={index} style={{ marginTop: '480px', height: '90px' }}>
-                    {elemento}
-                  </div>
-                ))}
+            <div className="middle-container" style={{ width: '200px', height: '650px', border: '2px solid black' }}>
+             <Video></Video>
+              <div className="middle-container" style={{ marginLeft: '-650px' , marginTop: '490px', 
+              height: '70px',
+               display: 'flex', flexWrap:'wrap'}}>
+              {miembrosGrupo && miembrosGrupo.map((usuario, index) => (
+                <div className="elemento" key={index}>
+                  {usuario.username}
+                </div>
+              ))}
               </div>
             </div>
 
 
             {/* Derecha */}
             <div className="right-container" style={{ textAlign: "left", justifyContent: "space-between" }}>
-
               <div className="split-content" style={{ display: "flex", flexDirection: "row" }}>
 
                 {/* Contactos */}
                 <div className="data-visualization" style={{ display: "flex", marginRight: 10, flexDirection: "column", alignItems: "center" }}>
-
                   <h2 style={{ backgroundColor: 'wait' }}>Contactos </h2>
                   {contactos && contactos.map((item, index) => (
                     <div key={index}>
@@ -193,19 +214,17 @@ const Mail = ({ cc, gg }) => {
 
                 {/* Grupos */}
                 <div className="data-visualization" style={{ display: "flex", marginLeft: 10, marginBotoom: "100%", flexDirection: "column", alignItems: "center" }}>
-
                   <h2 style={{ backgroundColor: 'wait' }}>Grupos </h2>
-                  {gg && gg.map((item, index) => (
-                    <div key={index}>
-                      {item.nombre}
+                  
+                  {gg.map((grupo) => (
+                    <div key={grupo.id} onClick={() => setGrupoSeleccionado(String(grupo.id))}>
+                      {grupo.nombre}
                     </div>
                   ))}
+
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
           {/* Pantalla Negra abajo*/}

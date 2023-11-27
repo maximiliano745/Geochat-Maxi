@@ -87,7 +87,7 @@ const App = () => {
 
 
   if (/Mobi|Android/i.test(navigator.userAgent)) {
-    alert('Es Movil');
+    //alert('Es Movil');
     fetch('https://geochat-efn9.onrender.com/api/v3/users/movil', {
       method: 'POST',
       headers: {
