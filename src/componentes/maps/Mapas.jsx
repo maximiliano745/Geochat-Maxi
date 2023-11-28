@@ -73,9 +73,6 @@ const Mapas = () => {
     }
   ]
 
-  
-
-
   const custoIcon = new Icon({
     iconUrl: require('../../imagenes/icon.png'),
     iconSize: [30, 30],

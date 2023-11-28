@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  height: 90%;
 }
 
 a {
@@ -14,25 +13,25 @@ a {
 
 header {
   background-color: #6690e4;
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* align-items:baseline; */
-  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: rgb(14, 36, 1);
 }
+
 .navbar-nav {
   text-align: center;
   background-color: #f3ececef;
 
 }
 
-.Form{
+.Form {
   width: 20%;
   margin-bottom: -3.5;
 }
-.h1{
+
+.h1 {
   width: auto;
   text-align: center;
 }

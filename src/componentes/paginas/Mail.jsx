@@ -174,8 +174,8 @@ const Mail = ({ cc, gg }) => {
         >
           {/*Pantalla  Gris arriba */}
 
-          <div className="split-content" style={{ backgroundColor: "gray", display: "flex", height: "90%", 
-          justifyContent: "space-between" }}>
+          <div className="split-content" style={{ backgroundColor: "gray", display: "flex", height: "90vh", 
+          justifyContent: "space-between"}}>
 
             {/* Izquierda */}
             <div className="left-container">

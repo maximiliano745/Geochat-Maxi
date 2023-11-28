@@ -5,7 +5,7 @@
 .left-container,
 .right-container {
   flex: 1;
-  height: 90vh; /* 100% de la altura del viewport */
+  /* height: 100%; */
   border: 1px solid #000;
 }
 
@@ -22,10 +22,8 @@
   gap: 3px; /* Espacio entre los nombres */
   overflow-x: auto;
   margin-top: -165px;
-  
+
 }
-
-
 
 .elemento {
   padding: 5px; /* Espaciado interno de los nombres */
