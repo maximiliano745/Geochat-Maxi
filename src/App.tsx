@@ -17,6 +17,8 @@ const App = () => {
   //const API_URL = "http://localhost:10000/"
   const API_URL = "https://geochat-efn9.onrender.com/"
 
+  const API_URL2='https://geochat-nativo-web.onrender.com/';
+  //const API_URL2='http://localhost:19006';
 
   const [contactos, setContactos] = useState([]);
   const [grupos, setGrupos] = useState([]);
@@ -87,32 +89,14 @@ const App = () => {
 
 
   if (/Mobi|Android/i.test(navigator.userAgent)) {
-    //alert('Es Movil');
-    fetch('https://geochat-efn9.onrender.com/api/v3/users/movil', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: 'correo@example.com',
-        password: 'contraseña',
-      }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        if (data.status) {
-          //alert('Acceso concedido');
-        } else {
-          alert(data.msg);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    //fetch('https://geochat-efn9.onrender.com/api/v3/users/movil', {
+    navigator.geolocation.getCurrentPosition(success, error, options);
+    console.log('Es Movil...');  
+    window.location.href =API_URL2; 
+
   } else {
     navigator.geolocation.getCurrentPosition(success, error, options);
-    console.log('No Es Movil');
+    console.log('No Es Movil...');
   }
 
   // Función para realizar la tarea que se ejecutará una sola vez

@@ -169,8 +169,8 @@ const Mail = ({ cc, gg }) => {
 
           split="vertical"
           defaultSize={1335}  // Ajusta este valor según tus necesidades
-          maxSize={1337}
-          minSize={830}
+          maxSize={1340}
+          minSize={825}
         >
           {/*Pantalla  Gris arriba */}
 
