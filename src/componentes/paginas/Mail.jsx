@@ -215,7 +215,7 @@ const Mail = ({ cc, gg }) => {
                 <div className="data-visualization" style={{ display: "flex", marginLeft: 10, marginBotoom: "100%", flexDirection: "column", alignItems: "center" }}>
                   <h2 style={{ backgroundColor: 'wait' }}>Grupos </h2>
                   
-                  {gg.map((grupo) => (
+                  {gg && gg.map((grupo) => (
                     <div key={grupo.id} onClick={() => setGrupoSeleccionado(String(grupo.id))}>
                       {grupo.nombre}
                     </div>
