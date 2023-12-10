@@ -216,7 +216,18 @@ const Mail = ({ cc, gg }) => {
                   <h2 style={{ backgroundColor: 'wait' }}>Grupos </h2>
                   
                   {gg && gg.map((grupo) => (
-                    <div key={grupo.id} onClick={() => setGrupoSeleccionado(String(grupo.id))}>
+                    // <div key={grupo.id} onClick={() => setGrupoSeleccionado(String(grupo.id))}
+                    <div key={grupo.id} onClick={() => setGrupoSeleccionado(grupo.id === grupoSeleccionado ? null : grupo.id)}
+
+                    style={{
+                      cursor: 'pointer',
+                      // backgroundColor: grupoSeleccionado === String(grupo.id) ? 'green' : 'initial',
+                      backgroundColor: grupo.id === grupoSeleccionado ? 'green' : 'initial',
+                      padding: '5px',
+                      margin: '5px',
+                      borderRadius: '5px',
+                    }}
+                    >
                       {grupo.nombre}
                     </div>
                   ))}
