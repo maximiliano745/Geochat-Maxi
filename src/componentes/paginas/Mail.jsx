@@ -4,7 +4,6 @@ import './Split.css'
 import './Contenedor.css';
 import { useState, useEffect } from 'react'
 import axios from "axios";
-//import { PropagateLoader } from 'react-spinners';
 import Video from './Video';
 
 const Mail = ({ cc, gg }) => {
@@ -27,10 +26,8 @@ const Mail = ({ cc, gg }) => {
 
 
   const [contactos, setContactos] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
   const [nombreGrupo, setNombreGrupo] = useState('');
   const [grupoCreado, setGrupoCreado] = useState(null);
-  //const [grupos, setGrupos] = useState([]);
   const [grupoSeleccionado, setGrupoSeleccionado] = useState(null);
   const [miembrosGrupo, setMiembrosGrupo] = useState([]);
 
@@ -216,12 +213,10 @@ const Mail = ({ cc, gg }) => {
                   <h2 style={{ backgroundColor: 'wait' }}>Grupos </h2>
                   
                   {gg && gg.map((grupo) => (
-                    // <div key={grupo.id} onClick={() => setGrupoSeleccionado(String(grupo.id))}
                     <div key={grupo.id} onClick={() => setGrupoSeleccionado(grupo.id === grupoSeleccionado ? null : grupo.id)}
 
                     style={{
                       cursor: 'pointer',
-                      // backgroundColor: grupoSeleccionado === String(grupo.id) ? 'green' : 'initial',
                       backgroundColor: grupo.id === grupoSeleccionado ? 'green' : 'initial',
                       padding: '5px',
                       margin: '5px',

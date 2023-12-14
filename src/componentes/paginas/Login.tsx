@@ -9,6 +9,7 @@ import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PropagateLoader } from 'react-spinners';
 
+
 interface user {
   email: string,
   password: string,
@@ -21,6 +22,9 @@ interface LoginProps {
 
 const Login = ({ onLogin }: LoginProps) => {
 
+  //const API_URL = "http://localhost:10000/"
+  const API_URL = "https://geochat-efn9.onrender.com/"
+  
   localStorage.removeItem("nombre");
   localStorage.removeItem("email");
   localStorage.removeItem("id");
@@ -43,7 +47,7 @@ const Login = ({ onLogin }: LoginProps) => {
   }
 
   const navigate = useNavigate();
-  
+
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -58,6 +62,26 @@ const Login = ({ onLogin }: LoginProps) => {
         localStorage.setItem('email', inputValues.email);
         localStorage.setItem('id', resp.id);
         localStorage.setItem('nombre', resp.name);
+        
+        // Enviar el ID del usuario al backend
+        const idUsuario = localStorage.getItem('id');
+
+        fetch(API_URL + 'api/v2/users/agregarActivo', {  
+          method: 'POST',
+          body: JSON.stringify({ userID: idUsuario }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then((response) => {
+          if (response.ok) {
+            console.log('ID de usuario enviado exitosamente al backend');
+          } else {
+            console.error('Error al enviar el ID de usuario al backend');
+          }
+        }).catch((error) => {
+          console.error('Error de red:', error);
+        });
+
         navigate('/mapa');
         return resp.data;
       } else {

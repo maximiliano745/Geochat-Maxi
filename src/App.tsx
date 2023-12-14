@@ -11,13 +11,15 @@ import { useEffect, useState } from 'react';
 import StatusLogin from './componentes/Auth/StatusLogin';
 import Mio from './componentes/paginas/Mio';
 import axios from "axios";
+import CreateRoom from './componentes/paginas/WEBRTC/CreateRoom';
+import Room from './componentes/paginas/WEBRTC/Room';
 
 const App = () => {
 
   //const API_URL = "http://localhost:10000/"
   const API_URL = "https://geochat-efn9.onrender.com/"
 
-  const API_URL2='https://geochat-nativo-web.onrender.com/';
+  const API_URL2 = 'https://geochat-nativo-web.onrender.com/';
   //const API_URL2='http://localhost:19006';
 
   const [contactos, setContactos] = useState([]);
@@ -35,7 +37,7 @@ const App = () => {
   const id = obtenerIdDelLocalStorage();
   let lat: any, lon: any
 
-  
+
   const getContactos = async (id: number) => {
     try {
       const response = await axios.post(API_URL + "api/v2/users/contactos", {
@@ -49,7 +51,7 @@ const App = () => {
     }
   };
 
-  const getGrupos = async (id : number) => {
+  const getGrupos = async (id: number) => {
     try {
       const response = await axios.post(API_URL + "api/v2/users/vergrupos", {
         id
@@ -60,8 +62,6 @@ const App = () => {
       console.error("Error en la solicitud de obtener contactos:", error);
       throw error;
     }
-
-
   }
 
   function success(pos: { coords: any; }) {
@@ -91,8 +91,8 @@ const App = () => {
   if (/Mobi|Android/i.test(navigator.userAgent)) {
     //fetch('https://geochat-efn9.onrender.com/api/v3/users/movil', {
     navigator.geolocation.getCurrentPosition(success, error, options);
-    console.log('Es Movil...');  
-    window.location.href =API_URL2; 
+    console.log('Es Movil...');
+    window.location.href = API_URL2;
 
   } else {
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -116,7 +116,7 @@ const App = () => {
         console.error("Error al obtener contactos:", error);
       });
 
-      getGrupos(id)
+    getGrupos(id)
       .then((data) => {
         setGrupos(data);
       })
@@ -124,9 +124,40 @@ const App = () => {
         console.error("Error al obtener contactos:", error);
       });
 
+    // Obtener el ID desde el localStorage
+    const userID = localStorage.getItem('id');
+    // Realizar la tarea repetida al hacer una solicitud a /keep-alive con el ID
+    fetch(API_URL + 'api/v2/users/keep-alive', {
+      method: 'POST',
+      body: JSON.stringify({ userID }), // Enviar el ID en el cuerpo de la solicitud
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => {
+      if (response.ok) {
+        // Verificar el tipo de contenido de la respuesta
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          response.json().then((data) => {
+            console.log("Respuesta del servidor (JSON) Verifificacion si esta ACTIVO:", data);
+          });
+        } else {
+          // Si la respuesta no es JSON, puede ser texto u otro formato
+          response.text().then((text) => {
+            console.log("Respuesta del servidor (Texto) Verifificacion si esta ACTIVO::", text);
+          });
+        }
+        console.error("Solicitud a /keep-alive exitosa:");
+      } else {
+        // Manejar casos de error si es necesario
+        console.error("Error en la solicitud a /keep-alive:", response.statusText);
+      }
+    }).catch((error) => {
+      console.error("Error al realizar la solicitud a /keep-alive:", error);
+    });
   };
 
-  
+
   // UseEffect para iniciar el temporizador al montar el componente
   useEffect(() => {
     tareaUnica();
@@ -162,6 +193,10 @@ const App = () => {
               <Route path='/mail' element={<Mail cc={contactos} gg={grupos} />} />
               <Route path='/chat' element={<Chat />} />
               <Route path='/mio' element={<Mio />} />
+
+              <Route path='/create' element={<CreateRoom />} />
+              <Route path="/room/:roomID" element={<Room />} />
+
 
             </Routes>
           </Router>
