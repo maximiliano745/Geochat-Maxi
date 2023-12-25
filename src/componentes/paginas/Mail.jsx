@@ -158,6 +158,18 @@ const Mail = ({ cc, gg }) => {
 
   console.log("***************---> Miembros del grupo:", miembrosGrupo);
 
+  const handleMemberClick = (userId) => {
+    alert(userId)
+    // Lógica para verificar si el usuario está activo en el backend
+    //const isActive = checkUserActive(userId); // Función que verifica si el usuario está activo en el backend
+  
+    // Si el usuario está activo, puedes implementar la lógica para unirse a la llamada WebRTC
+    //if (isActive) {
+      // Lógica para unirse a la llamada WebRTC
+    //  joinWebRTC(userId); // Función para unirse a la llamada WebRTC
+    //}
+  };
+  
 
   return (
     <>
@@ -184,10 +196,23 @@ const Mail = ({ cc, gg }) => {
             <div className="middle-container">
              <Video></Video>
               <div className="middle-container2">
-              {miembrosGrupo && miembrosGrupo.map((usuario, index) => (
-                <div className="elemento" key={index}>
-                  {usuario.username}
-                </div>
+              {miembrosGrupo && miembrosGrupo.map((usuario) => (
+                
+              
+              <div key={usuario.id}
+              onClick={() => handleMemberClick(usuario.id)}
+
+                    style={{
+                      cursor: 'pointer',
+                      backgroundColor: usuario.id === miembrosGrupo ? 'green' : 'initial',
+                      padding: '5px',
+                      margin: '5px',
+                      borderRadius: '5px',
+                    }}
+                    >
+                      {usuario.username}
+                    </div>
+              
               ))}
               </div>
             </div>
